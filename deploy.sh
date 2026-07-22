@@ -61,6 +61,18 @@ deploy_assert_hash() {
     }
 }
 
+deploy_stamp_stylesheet() {
+    local css_hash
+    css_hash="$(shasum -a 256 "$DEPLOY_SOURCE/styles.css" | awk '{print substr($1, 1, 12)}')"
+
+    local html_file
+    while IFS= read -r html_file; do
+        sed -i '' -E "s|styles\.css\?v=[0-9a-f]+|styles.css?v=${css_hash}|g" "$html_file"
+    done < <(find "$DEPLOY_SOURCE" -type f -name '*.html' -print)
+
+    printf '\nStamped stylesheet cache-buster: styles.css?v=%s\nReview and commit the updated HTML, then run ./deploy.sh\n' "$css_hash"
+}
+
 deploy_verify_live() {
     local revision="$1"
 
@@ -132,6 +144,12 @@ main() {
     deploy_require_command curl
     deploy_require_command find
     deploy_require_command shasum
+    deploy_require_command sed
+
+    if [[ "${1:-}" == "--stamp" ]]; then
+        deploy_stamp_stylesheet
+        exit 0
+    fi
 
     deploy_validate_source
 

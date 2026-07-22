@@ -110,7 +110,7 @@ img {
   width: 34px;
   height: 34px;
   place-items: center;
-  background: var(--ink);
+  background: linear-gradient(90deg, var(--ink) 50%, var(--blue) 50%);
   color: var(--paper);
   font-size: 12px;
   letter-spacing: -0.02em;
@@ -190,9 +190,18 @@ img {
   color: var(--blue);
 }
 
-h1,
+h1 {
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
 h2,
-h3,
+h3 {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  text-wrap: balance;
+}
+
 p {
   overflow-wrap: break-word;
 }
@@ -391,6 +400,22 @@ circle.station {
 .route__terminal small {
   color: var(--muted);
   font-size: 11px;
+}
+
+a.route__label strong {
+  display: inline-block;
+  border-bottom: 1px solid transparent;
+  transition: border-color 180ms ease-out, color 180ms ease-out;
+}
+
+a.route__label:hover strong,
+a.route__label:focus-visible strong {
+  border-color: currentColor;
+}
+
+a.route__label--ai:hover strong,
+a.route__label--ai:focus-visible strong {
+  color: var(--blue);
 }
 
 .route__label--ai {

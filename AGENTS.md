@@ -34,6 +34,7 @@ The site presents two connected tracks: Senior Frontend Engineering and Applied 
 - Run the relevant build, checks, and tests before handing off code changes.
 - Update this file and `README.md` when the project structure or standard commands change.
 - Deploy the static site only with `./deploy.sh`; use `./deploy.sh --dry-run` to inspect synchronization without changing production.
+- After changing `styles.css`, run `./deploy.sh --stamp` to regenerate the `styles.css?v=<hash>` cache-buster in every HTML file, then commit. Never edit the hash by hand; `deploy.sh` still fails if a stale hash reaches deployment.
 
 ## Current state
 

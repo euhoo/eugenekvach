@@ -16,7 +16,7 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
     />
     <title>Евгений Квач — Senior Frontend &amp; Applied AI Engineer</title>
     <link rel="canonical" href="https://eugenekvach.ru/" />
-    <link rel="icon" href="data:," />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:url" content="https://eugenekvach.ru/" />
@@ -25,7 +25,10 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
       property="og:description"
       content="Сложные web- и AI-системы. Довожу до production."
     />
-    <meta property="og:image" content="https://eugenekvach.ru/assets/eugene-kvach.jpg" />
+    <meta property="og:image" content="https://eugenekvach.ru/assets/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Евгений Квач — Senior Frontend &amp; Applied AI Engineer" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,7 +36,7 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
       href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=c5b9b266bfaf" />
+    <link rel="stylesheet" href="./styles.css?v=1f09d27f5bbf" />
   </head>
   <body>
     <a class="skip-link" href="#content">К основному содержанию</a>
@@ -48,7 +51,7 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
         <nav class="site-nav" aria-label="Основная навигация">
           <a href="./ai/"><i class="nav-dot nav-dot--ai" aria-hidden="true"></i>AI</a>
           <a href="./frontend/"><i class="nav-dot" aria-hidden="true"></i>Frontend</a>
-          <a href="#lab">Инструменты</a>
+          <a href="./helper/">Jarwis</a>
           <a class="site-nav__contact" href="https://t.me/euhoo">Связаться ↗</a>
         </nav>
       </div>
@@ -63,9 +66,9 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
             Довожу до <em>production.</em>
           </h1>
           <p class="hero__lead">
-            7+ лет строю enterprise frontend на Angular и Nx. Сейчас проектирую
-            LLM-агентов, память, инструменты и контуры качества: от интерфейса
-            до эксплуатации.
+            Семь лет собираю enterprise-фронтенд на Angular и Nx. Параллельно
+            строю LLM-ассистентов, которые предсказуемо работают в проде:
+            маршрутизация, память, инструменты, тесты на поведение.
           </p>
 
           <div class="hero__actions" aria-label="Основные действия">
@@ -103,22 +106,22 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
               <circle class="station station--terminal" cx="548" cy="316" r="17" />
             </svg>
 
-            <div class="route__label route__label--ai">
+            <a class="route__label route__label--ai" href="./ai/" aria-label="Applied AI — открыть маршрут">
               <span>Applied AI</span>
-              <strong>Jarwis</strong>
+              <strong>AI-инженерия</strong>
               <small>агенты · память · tools</small>
-            </div>
+            </a>
 
             <div class="route__metric route__metric--speed">
               <strong>~31 мс</strong>
               <span>fast-path без LLM</span>
             </div>
 
-            <div class="route__label route__label--frontend">
+            <a class="route__label route__label--frontend" href="./frontend/" aria-label="Frontend — открыть маршрут">
               <span>Frontend</span>
               <strong>Angular / Nx</strong>
               <small>архитектура · UI · contracts</small>
-            </div>
+            </a>
 
             <div class="route__metric route__metric--years">
               <strong>7+ лет</strong>
@@ -151,7 +154,7 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
             <p class="destination"><i class="destination__dot" aria-hidden="true"></i> Главная станция · Applied AI</p>
             <div class="case__heading">
               <h2 id="jarwis-title">Jarwis</h2>
-              <p>Не обёртка над API, а production-система вокруг LLM.</p>
+              <p>Вокруг модели строю целую систему: маршрутизацию, память, проверки. Сама LLM здесь — одна из деталей.</p>
             </div>
           </header>
 
@@ -201,11 +204,11 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
 
           <div class="case__story">
             <div class="case__summary">
-              <h3>Три инженерных решения, которые сделали систему предсказуемее.</h3>
+              <h3>Три решения, после которых система перестала удивлять в проде.</h3>
               <p>
-                Там, где поведение можно определить заранее, модель не вызывается.
-                Там, где нужен reasoning, агент получает узкий набор инструментов,
-                память и проверяемый сценарий.
+                Если ответ известен заранее — модель просто не зовём, так быстрее
+                и без сюрпризов. Если нужен reasoning — агенту дают узкий набор
+                инструментов, память и сценарий, который можно прогнать перед релизом.
               </p>
             </div>
 
@@ -307,7 +310,7 @@ FORM: Experience-mode production interchange; approved grounded direction 5 from
         <div class="shell lab__inner">
           <header class="lab__header">
             <p>Побочные маршруты</p>
-            <h2 id="lab-title">Небольшие инструменты для реальных инженерных вопросов.</h2>
+            <h2 id="lab-title">Небольшие инструменты, которые закрывают конкретную боль.</h2>
           </header>
 
           <div class="lab__list">
