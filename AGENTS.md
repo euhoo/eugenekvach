@@ -35,4 +35,6 @@ The site presents two connected tracks: Senior Frontend Engineering and Applied 
 
 ## Current state
 
-The application framework has not been scaffolded yet. Do not assume build or test commands until they exist in the repository.
+The first static release lives in `prototype/` and runs without a build step. Use `python3 -m http.server 4173 --directory prototype` for local review.
+
+Astro has not been scaffolded yet. It remains the intended next step for the shared layout and the `/ai`, `/frontend`, and `/helper` routes; do not assume package-manager, build, or test commands until that scaffold exists.
