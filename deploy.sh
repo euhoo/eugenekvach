@@ -70,6 +70,7 @@ deploy_verify_live() {
 
     deploy_assert_status "200" "$DEPLOY_URL/?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/ai/?revision=$revision" || return 1
+    deploy_assert_status "200" "$DEPLOY_URL/frontend/?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/helper/?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/styles.css?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/assets/eugene-kvach.jpg?revision=$revision" || return 1
@@ -77,6 +78,7 @@ deploy_verify_live() {
 
     deploy_assert_hash "index.html" "$revision" || return 1
     deploy_assert_hash "ai/index.html" "$revision" || return 1
+    deploy_assert_hash "frontend/index.html" "$revision" || return 1
     deploy_assert_hash "helper/index.html" "$revision" || return 1
     deploy_assert_hash "styles.css" "$revision" || return 1
     deploy_assert_hash "assets/eugene-kvach.jpg" "$revision" || return 1
@@ -94,11 +96,12 @@ deploy_validate_source() {
 
     [[ -f "$DEPLOY_SOURCE/index.html" ]] || deploy_fail "src/index.html is missing"
     [[ -f "$DEPLOY_SOURCE/ai/index.html" ]] || deploy_fail "src/ai/index.html is missing"
+    [[ -f "$DEPLOY_SOURCE/frontend/index.html" ]] || deploy_fail "src/frontend/index.html is missing"
     [[ -f "$DEPLOY_SOURCE/helper/index.html" ]] || deploy_fail "src/helper/index.html is missing"
     [[ -f "$DEPLOY_SOURCE/styles.css" ]] || deploy_fail "src/styles.css is missing"
     [[ -f "$DEPLOY_SOURCE/assets/eugene-kvach.jpg" ]] || deploy_fail "Hero image is missing"
 
-    if grep -Eiq 'noindex|nofollow' "$DEPLOY_SOURCE/index.html" "$DEPLOY_SOURCE/ai/index.html" "$DEPLOY_SOURCE/helper/index.html"; then
+    if grep -Eiq 'noindex|nofollow' "$DEPLOY_SOURCE/index.html" "$DEPLOY_SOURCE/ai/index.html" "$DEPLOY_SOURCE/frontend/index.html" "$DEPLOY_SOURCE/helper/index.html"; then
         deploy_fail "production HTML contains noindex or nofollow"
     fi
 

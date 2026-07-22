@@ -4,7 +4,7 @@ Source code for [eugenekvach.ru](https://eugenekvach.ru) — the personal websit
 
 ## Current version
 
-The current release is a static HTML/CSS site in `src/`: the home page, the Applied AI role page at `/ai/`, and the proof-first Jarwis case study at `/helper/`. It is intentionally framework-free while the deeper `/frontend` route is developed.
+The current release is a static HTML/CSS site in `src/`: the home page, the Applied AI role page at `/ai/`, the Senior Frontend role page at `/frontend/`, and the proof-first Jarwis case study at `/helper/`. It is intentionally framework-free.
 
 Run it locally:
 
@@ -37,6 +37,7 @@ Preview the synchronization without changing GitHub or production:
 - `.impeccable/` — machine-readable design tokens and route-level design briefs;
 - `src/index.html` — the Russian-first home page;
 - `src/ai/index.html` — the Applied AI Engineering role page;
+- `src/frontend/index.html` — the Senior Frontend Engineering role page;
 - `src/helper/index.html` — the proof-first Jarwis engineering case study;
 - `src/styles.css` — design tokens, responsive layout, and diagrams;
 - `src/assets/` — optimized public assets.
