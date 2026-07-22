@@ -30,12 +30,15 @@ The site presents two connected tracks: Senior Frontend Engineering and Applied 
 - The default branch is `master`.
 - Inspect the repository before editing and preserve unrelated user changes.
 - Keep changes small and scoped to the requested task.
-- Use the package manager selected by the existing lockfile once the app is scaffolded.
+- Keep the project dependency-free; there is no package manager or application scaffold.
 - Run the relevant build, checks, and tests before handing off code changes.
 - Update this file and `README.md` when the project structure or standard commands change.
+- Deploy the static site only with `./deploy.sh`; use `./deploy.sh --dry-run` to inspect synchronization without changing production.
 
 ## Current state
 
 The first static release lives in `prototype/` and runs without a build step. Use `python3 -m http.server 4173 --directory prototype` for local review.
 
 Future `/ai`, `/frontend`, and `/helper` routes should also be plain static pages using the shared stylesheet. There is intentionally no package manager, framework, or build command.
+
+Production deployment is automated by `./deploy.sh`. It requires a clean `master`, pushes the branch, backs up the current remote files, synchronizes only `prototype/`, verifies HTTPS externally, and rolls back the static files on failure.

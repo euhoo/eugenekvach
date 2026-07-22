@@ -14,10 +14,27 @@ python3 -m http.server 4173 --directory prototype
 
 Then open `http://127.0.0.1:4173/`.
 
+## Deploy
+
+Deployment is intentionally a local one-command workflow:
+
+```bash
+./deploy.sh
+```
+
+The script requires a clean `master` branch, validates the static source, pushes `master`, backs up the current server files, synchronizes `prototype/`, and runs external HTTPS smoke tests. If synchronization or verification fails, it restores the previous static release.
+
+Preview the synchronization without changing GitHub or production:
+
+```bash
+./deploy.sh --dry-run
+```
+
 ## Structure
 
 - `prototype/index.html` — the Russian-first home page;
 - `prototype/styles.css` — design tokens, responsive layout, and diagrams;
 - `prototype/assets/` — optimized public assets.
+- `deploy.sh` — guarded production deployment with backup, verification, and rollback.
 
 The site deliberately stays on plain HTML and CSS. Future routes will use static directory-based pages and the shared stylesheet. There is no package manager or build command; vanilla JavaScript may be added only for focused, useful interaction.
