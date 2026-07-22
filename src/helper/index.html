@@ -36,7 +36,21 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
       href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../styles.css?v=1f09d27f5bbf" />
+    <link rel="stylesheet" href="../styles.css?v=374b3c60e534" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Евгений Квач",
+        "alternateName": "Eugene Kvach",
+        "url": "https://eugenekvach.ru/",
+        "email": "mailto:euhoo@mail.ru",
+        "jobTitle": "Senior Frontend & Applied AI Engineer",
+        "description": "Product engineer: enterprise-фронтенд на Angular/Nx и production-системы вокруг LLM.",
+        "knowsAbout": ["Frontend Engineering","Angular","Nx","TypeScript","Applied AI","LLM","RAG","AI agents","Prompt engineering","Software architecture"],
+        "sameAs": ["https://t.me/euhoo"]
+      }
+    </script>
   </head>
   <body class="case-page">
     <a class="skip-link" href="#content">К основному содержанию</a>
@@ -62,17 +76,17 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
         <div class="shell helper-hero__inner">
           <div class="helper-hero__copy">
             <p class="case-marker"><i aria-hidden="true"></i> Engineering case study · production с весны 2026</p>
-            <h1 id="helper-title">Jarwis: production AI-ассистент в Telegram.</h1>
+            <h1 id="helper-title">Jarwis: production AI-ассистент в Telegram</h1>
             <p class="helper-hero__lead">
               Мульти-агентная оркестрация, инструменты, двухслойная память и
               детерминированные контуры вокруг LLM — с замерами latency,
               стоимости и качества.
             </p>
             <div class="helper-hero__actions">
-              <a class="button button--light" href="https://t.me/own_dr_bot" target="_blank" rel="noreferrer">
-                Открыть живое демо <span aria-hidden="true">↗</span>
+              <a class="button button--light" href="#architecture">
+                Смотреть архитектуру <span aria-hidden="true">↓</span>
               </a>
-              <a class="button button--blue-quiet" href="#architecture">Смотреть архитектуру ↓</a>
+              <a class="button button--blue-quiet" href="https://t.me/euhoo">Обсудить задачу ↗</a>
             </div>
             <p class="privacy-note">
               Это инженерный кейс, не медицинский сервис. Пользовательские данные,
@@ -151,7 +165,6 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
             </details>
           </article>
         </div>
-        <p class="evidence-help"><span aria-hidden="true">?</span> Нажмите на знак, чтобы увидеть контекст метрики.</p>
       </section>
 
       <nav class="case-nav" aria-label="Навигация по кейсу">
@@ -167,7 +180,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
       <section class="helper-context shell" id="context" aria-labelledby="context-title">
         <p class="section-route"><i aria-hidden="true"></i> Контекст и ограничения</p>
         <div class="helper-context__body">
-          <h2 id="context-title">Подключить LLM API было самой простой частью.</h2>
+          <h2 id="context-title">Подключить LLM API было самой простой частью</h2>
           <p class="helper-context__lead">
             Сложность началась там, где свободное поведение модели встретилось
             с персональными данными, структурированной записью и production-ожиданиями.
@@ -187,7 +200,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
         <div class="shell architecture__header">
           <p class="section-route section-route--dark"><i aria-hidden="true"></i> Карта запросов</p>
           <div>
-            <h2 id="architecture-title">Один вход. Четыре принципиально разных пути.</h2>
+            <h2 id="architecture-title">Один вход. Четыре принципиально разных пути</h2>
             <p>
               Выберите сценарий: схема подсветит только те слои, которые реально
               участвуют в обработке. Без переключения вся архитектура остаётся читаемой.
@@ -332,7 +345,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
               <i aria-hidden="true"></i>
             </aside>
             <article class="decision__record">
-              <h2 id="fast-title">Критичный интерфейс нельзя гарантировать одним prompt.</h2>
+              <h2 id="fast-title">Критичный интерфейс нельзя гарантировать одним prompt</h2>
               <details class="decision-note">
                 <summary>Что значит deterministic fast-path?</summary>
                 <p>Для известного intent результат задаёт код, а не выбор модели. Общие формулировки по-прежнему уходят в LLM-контур.</p>
@@ -355,7 +368,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
               <i aria-hidden="true"></i>
             </aside>
             <article class="decision__record">
-              <h2 id="cache-title">Сократить prompt недостаточно. Нужно сохранить стабильный prefix.</h2>
+              <h2 id="cache-title">Сократить prompt недостаточно. Нужно сохранить стабильный prefix</h2>
               <details class="decision-note">
                 <summary>Что такое prefix cache?</summary>
                 <p>Провайдер повторно использует вычисления для неизменной начальной части prompt. Поэтому стабильные правила идут первыми, а динамический контекст — после них.</p>
@@ -378,7 +391,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
               <i aria-hidden="true"></i>
             </aside>
             <article class="decision__record">
-              <h2 id="tests-title">Тест функции не доказывает, что работает пользовательский сценарий.</h2>
+              <h2 id="tests-title">Тест функции не доказывает, что работает пользовательский сценарий</h2>
               <details class="decision-note">
                 <summary>Что проверяет scenario harness?</summary>
                 <p>Не отдельную функцию, а цепочку: Telegram-диалог, routing, tool calls, ответ пользователю и итоговое изменение данных.</p>
@@ -401,7 +414,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
               <i aria-hidden="true"></i>
             </aside>
             <article class="decision__record">
-              <h2 id="memory-title">Vector search не превращает накопленные записи в память.</h2>
+              <h2 id="memory-title">Vector search не превращает накопленные записи в память</h2>
               <details class="decision-note">
                 <summary>Зачем памяти два слоя?</summary>
                 <p>Короткий контекст должен устаревать, а долгосрочные факты — проходить recall, нормализацию и дедупликацию. У них разный lifecycle.</p>
@@ -420,7 +433,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
       <section class="data-path shell" id="data" aria-labelledby="data-title">
         <p class="section-route"><i aria-hidden="true"></i> Структурированная запись</p>
         <div class="data-path__heading">
-          <h2 id="data-title">Для PDF — отдельный предсказуемый путь.</h2>
+          <h2 id="data-title">Для PDF — отдельный предсказуемый путь</h2>
           <p>В публичном кейсе нет реальных медицинских документов. Показан только инженерный контур обработки.</p>
         </div>
         <ol class="data-pipeline">
@@ -459,7 +472,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
         <div class="shell operations__inner">
           <p class="section-route section-route--dark"><i aria-hidden="true"></i> Production и эксплуатация</p>
           <div class="operations__heading">
-            <h2 id="operations-title">Система заканчивается не на ответе модели.</h2>
+            <h2 id="operations-title">Система заканчивается не на ответе модели</h2>
             <p>Отдельные контуры отвечают за доставку, ограничения и восстановление, не маскируя программные ошибки.</p>
           </div>
           <ul class="operations__list">
@@ -476,7 +489,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
       <section class="lessons shell" aria-labelledby="lessons-title">
         <p class="section-route"><i aria-hidden="true"></i> Что изменилось в подходе</p>
         <div class="lessons__body">
-          <h2 id="lessons-title">Четыре вывода, которые переношу в следующие AI-системы.</h2>
+          <h2 id="lessons-title">Четыре вывода, которые переношу в следующие AI-системы</h2>
           <ol>
             <li><strong>Prompt не является гарантией.</strong><span>Критичные пути требуют deterministic guards.</span></li>
             <li><strong>Evals проверяют последствия.</strong><span>Ответ модели, tool call, запись в БД и полный сценарий.</span></li>
@@ -492,8 +505,9 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
           <h2 id="helper-contact-title">Нужно встроить LLM в существующий продукт?</h2>
           <div class="helper-contact__actions">
             <a class="button button--contact" href="https://t.me/euhoo">Обсудить задачу <span aria-hidden="true">↗</span></a>
-            <a class="helper-contact__demo" href="https://t.me/own_dr_bot" target="_blank" rel="noreferrer">Открыть Jarwis в Telegram ↗</a>
+            <a class="helper-contact__demo" href="mailto:euhoo@mail.ru">euhoo@mail.ru</a>
           </div>
+          <p class="contact-format">Живое демо Jarwis — по запросу. Проектная / частичная занятость, удалённо.</p>
         </div>
       </section>
     </main>
@@ -505,6 +519,7 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
           <span>Senior Frontend × Applied AI Engineer</span>
         </div>
         <a href="../">На главную ←</a>
+        <a href="mailto:euhoo@mail.ru">euhoo@mail.ru</a>
         <span>© 2026 · eugenekvach.ru</span>
       </div>
     </footer>
