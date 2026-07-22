@@ -37,8 +37,8 @@ The site presents two connected tracks: Senior Frontend Engineering and Applied 
 
 ## Current state
 
-The first static release lives in `prototype/` and runs without a build step. Use `python3 -m http.server 4173 --directory prototype` for local review.
+The production source lives in `src/` and runs without a build step. Use `python3 -m http.server 4173 --directory src` for local review.
 
 Future `/ai`, `/frontend`, and `/helper` routes should also be plain static pages using the shared stylesheet. There is intentionally no package manager, framework, or build command.
 
-Production deployment is automated by `./deploy.sh`. It requires a clean `master`, pushes the branch, backs up the current remote files, synchronizes only `prototype/`, verifies HTTPS externally, and rolls back the static files on failure.
+Production deployment is automated by `./deploy.sh`. It requires a clean `master`, pushes the branch, backs up the current remote files, synchronizes only `src/`, verifies HTTPS externally, and rolls back the static files on failure.

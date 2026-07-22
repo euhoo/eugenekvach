@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 readonly DEPLOY_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly DEPLOY_SOURCE="$DEPLOY_ROOT/prototype"
+readonly DEPLOY_SOURCE="$DEPLOY_ROOT/src"
 readonly DEPLOY_HOST="macmini"
 readonly DEPLOY_REMOTE_LIVE="/Users/evgen/sites/eugenekvach"
 readonly DEPLOY_REMOTE_BACKUPS="/Users/evgen/sites/backups"
@@ -88,8 +88,8 @@ deploy_rollback() {
 deploy_validate_source() {
     deploy_log "1/5" "Validating local source"
 
-    [[ -f "$DEPLOY_SOURCE/index.html" ]] || deploy_fail "prototype/index.html is missing"
-    [[ -f "$DEPLOY_SOURCE/styles.css" ]] || deploy_fail "prototype/styles.css is missing"
+    [[ -f "$DEPLOY_SOURCE/index.html" ]] || deploy_fail "src/index.html is missing"
+    [[ -f "$DEPLOY_SOURCE/styles.css" ]] || deploy_fail "src/styles.css is missing"
     [[ -f "$DEPLOY_SOURCE/assets/eugene-kvach.jpg" ]] || deploy_fail "Hero image is missing"
 
     if grep -Eiq 'noindex|nofollow' "$DEPLOY_SOURCE/index.html"; then
@@ -139,7 +139,7 @@ main() {
     deploy_log "3/5" "Backing up the current static release"
     ssh "$DEPLOY_HOST" "mkdir -p '$remote_backup' && /usr/bin/rsync -a --delete '$DEPLOY_REMOTE_LIVE/' '$remote_backup/'"
 
-    deploy_log "4/5" "Synchronizing prototype/ to production"
+    deploy_log "4/5" "Synchronizing src/ to production"
     if ! rsync -av --delete \
         --exclude '.DS_Store' \
         --exclude '.well-known/' \
