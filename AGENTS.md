@@ -18,7 +18,8 @@ The site presents two connected tracks: Senior Frontend Engineering and Applied 
 ## Engineering principles
 
 - Prefer a static-first implementation with minimal client-side JavaScript.
-- The intended default stack is Astro and TypeScript unless the user decides otherwise.
+- Keep the site framework-free: semantic HTML, shared CSS, and only small amounts of vanilla JavaScript when interaction clearly improves the story.
+- Do not introduce Astro, TypeScript, npm, a package manager, or a build step unless the user explicitly reverses this decision.
 - Treat accessibility, semantic HTML, responsive behavior, and performance as product requirements.
 - Keep content concise and evidence-based. Never invent experience, ownership, or metrics.
 - Never commit secrets, private medical data, corporate source code, or confidential internal details.
@@ -37,4 +38,4 @@ The site presents two connected tracks: Senior Frontend Engineering and Applied 
 
 The first static release lives in `prototype/` and runs without a build step. Use `python3 -m http.server 4173 --directory prototype` for local review.
 
-Astro has not been scaffolded yet. It remains the intended next step for the shared layout and the `/ai`, `/frontend`, and `/helper` routes; do not assume package-manager, build, or test commands until that scaffold exists.
+Future `/ai`, `/frontend`, and `/helper` routes should also be plain static pages using the shared stylesheet. There is intentionally no package manager, framework, or build command.

@@ -20,4 +20,4 @@ Then open `http://127.0.0.1:4173/`.
 - `prototype/styles.css` — design tokens, responsive layout, and diagrams;
 - `prototype/assets/` — optimized public assets.
 
-Astro and TypeScript remain the intended stack for the multi-route version. No package manager or build command is required for the current static release.
+The site deliberately stays on plain HTML and CSS. Future routes will use static directory-based pages and the shared stylesheet. There is no package manager or build command; vanilla JavaScript may be added only for focused, useful interaction.
