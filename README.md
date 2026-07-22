@@ -1,2 +1,5 @@
 # eugenekvach
-Personal website for Eugene Kvach — Senior Frontend &amp; Applied AI Engineer
+
+Source code for [eugenekvach.ru](https://eugenekvach.ru) — the personal website of Eugene Kvach, Senior Frontend & Applied AI Engineer.
+
+Status: initial setup.
