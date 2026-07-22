@@ -96,6 +96,12 @@ deploy_validate_source() {
         deploy_fail "production HTML contains noindex or nofollow"
     fi
 
+    local css_hash
+    css_hash="$(shasum -a 256 "$DEPLOY_SOURCE/styles.css" | awk '{print substr($1, 1, 12)}')"
+    if ! grep -Fq "href=\"./styles.css?v=$css_hash\"" "$DEPLOY_SOURCE/index.html"; then
+        deploy_fail "stylesheet cache-buster is stale; expected styles.css?v=$css_hash"
+    fi
+
     git -C "$DEPLOY_ROOT" diff --check
 
     if [[ -n "$(git -C "$DEPLOY_ROOT" status --porcelain --untracked-files=normal)" ]]; then

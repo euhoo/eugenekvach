@@ -22,7 +22,7 @@ Deployment is intentionally a local one-command workflow:
 ./deploy.sh
 ```
 
-The script requires a clean `master` branch, validates the static source, pushes `master`, backs up the current server files, synchronizes `src/`, and runs external HTTPS smoke tests. If synchronization or verification fails, it restores the previous static release.
+The script requires a clean `master` branch, validates the static source and the content-hash cache-buster on `styles.css`, pushes `master`, backs up the current server files, synchronizes `src/`, and runs external HTTPS smoke tests. If synchronization or verification fails, it restores the previous static release.
 
 Preview the synchronization without changing GitHub or production:
 
