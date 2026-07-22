@@ -32,6 +32,9 @@ Preview the synchronization without changing GitHub or production:
 
 ## Structure
 
+- `PRODUCT.md` — stable product truth and constraints used for design decisions;
+- `DESIGN.md` — durable visual system for the site;
+- `.impeccable/` — machine-readable design tokens and route-level design briefs;
 - `src/index.html` — the Russian-first home page;
 - `src/styles.css` — design tokens, responsive layout, and diagrams;
 - `src/assets/` — optimized public assets.

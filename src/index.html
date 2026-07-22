@@ -1,11 +1,18 @@
 <!doctype html>
+<!--
+THESIS: Two engineering routes converge at production; refuse the generic portfolio grid of skills, cards, and decorative metrics.
+OWN-WORLD: Cool canvas, white map sheets, signal-black Frontend, cobalt Applied AI, square controls, circular stations, and orthogonal traces.
+STORY: The visitor sees Eugene's two tracks, follows the strongest AI proof, verifies the Frontend foundation, and opens a direct conversation.
+FIRST VIEWPORT: A large four-line thesis occupies the left half; a factual competency map fills the right; Jarwis and Telegram actions sit beneath the thesis.
+FORM: Experience-mode production interchange; approved grounded direction 5 from seed bcba1db7.
+-->
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Евгений Квач — Senior Frontend &amp; Applied AI Engineer. Сложные web- и AI-продукты от архитектуры до production."
+      content="Евгений Квач — Senior Frontend &amp; Applied AI Engineer. Сложные web- и AI-системы от архитектуры до production."
     />
     <title>Евгений Квач — Senior Frontend &amp; Applied AI Engineer</title>
     <link rel="canonical" href="https://eugenekvach.ru/" />
@@ -16,11 +23,16 @@
     <meta property="og:title" content="Евгений Квач — Senior Frontend &amp; Applied AI Engineer" />
     <meta
       property="og:description"
-      content="Собираю сложные web- и AI-продукты, которые доходят до production."
+      content="Сложные web- и AI-системы. Довожу до production."
     />
     <meta property="og:image" content="https://eugenekvach.ru/assets/eugene-kvach.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preload" href="./assets/eugene-kvach.jpg" as="image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -28,16 +40,16 @@
 
     <header class="site-header">
       <div class="shell header-inner">
-        <a class="wordmark" href="#top" aria-label="Евгений Квач, на начало страницы">
-          <span class="wordmark__mark" aria-hidden="true">ЕК</span>
-          <span>Евгений Квач</span>
+        <a class="identity" href="#top" aria-label="Евгений Квач, начало страницы">
+          <span class="identity__mark" aria-hidden="true">ЕК</span>
+          <span class="identity__name">Евгений Квач</span>
         </a>
 
         <nav class="site-nav" aria-label="Основная навигация">
-          <a href="#jarwis">AI</a>
-          <a href="#frontend">Frontend</a>
-          <a href="#jarwis">Jarwis</a>
-          <a href="#contact">Контакт</a>
+          <a href="#jarwis"><i class="nav-dot nav-dot--ai" aria-hidden="true"></i>AI</a>
+          <a href="#frontend"><i class="nav-dot" aria-hidden="true"></i>Frontend</a>
+          <a href="#lab">Инструменты</a>
+          <a class="site-nav__contact" href="https://t.me/euhoo">Связаться ↗</a>
         </nav>
       </div>
     </header>
@@ -45,244 +57,260 @@
     <main id="content">
       <section class="hero shell" id="top" aria-labelledby="hero-title">
         <div class="hero__copy">
-          <p class="eyebrow">Евгений Квач · Senior Frontend &amp; Applied AI Engineer</p>
+          <p class="role">Senior Frontend <span>×</span> Applied AI Engineer</p>
           <h1 id="hero-title">
-            Собираю сложные web- и AI-продукты, которые доходят до
-            <span>production.</span>
+            Сложные системы.<br />
+            Довожу до <em>production.</em>
           </h1>
           <p class="hero__lead">
-            7+ лет развиваю frontend на Angular и Nx. Сейчас проектирую LLM-агентов,
-            память, инструменты и контуры качества — от интерфейса до эксплуатации.
+            7+ лет строю enterprise frontend на Angular и Nx. Сейчас проектирую
+            LLM-агентов, память, инструменты и контуры качества: от интерфейса
+            до эксплуатации.
           </p>
 
           <div class="hero__actions" aria-label="Основные действия">
             <a class="button button--primary" href="#jarwis">
-              Изучить Jarwis
-              <span aria-hidden="true">↘</span>
+              Смотреть Jarwis <span aria-hidden="true">→</span>
             </a>
-            <a class="button button--text" href="https://t.me/euhoo">
-              Обсудить задачу
-              <span aria-hidden="true">↗</span>
+            <a class="button button--quiet" href="https://t.me/euhoo" aria-label="Написать в Telegram">
+              <span class="button__long">Написать в Telegram ↗</span>
+              <span class="button__short" aria-hidden="true">Telegram ↗</span>
             </a>
           </div>
+
         </div>
 
-        <figure class="portrait">
-          <img
-            class="portrait__image"
-            src="./assets/eugene-kvach.jpg"
-            alt="Портрет Евгения Квача"
-            width="959"
-            height="1280"
-          />
-          <figcaption>
-            <span>Евгений Квач · 2026</span>
-            <span>Web × Applied AI</span>
+        <figure class="route" aria-labelledby="route-title">
+          <figcaption class="route__meta" id="route-title">
+            <span>Карта компетенций</span>
+            <span>2026 / RU</span>
           </figcaption>
+
+          <div class="route__canvas">
+            <svg viewBox="0 0 620 620" aria-hidden="true">
+              <path class="track track--ai" pathLength="1" d="M66 116H232C257 116 270 129 270 154V278C270 303 283 316 308 316H548" />
+              <path class="track track--frontend" pathLength="1" d="M66 508H206C231 508 244 495 244 470V354C244 329 257 316 282 316H548" />
+
+              <g class="station station--ai">
+                <circle cx="66" cy="116" r="10" />
+                <circle cx="270" cy="218" r="10" />
+              </g>
+              <g class="station station--frontend">
+                <circle cx="66" cy="508" r="10" />
+                <circle cx="244" cy="420" r="10" />
+              </g>
+              <circle class="station station--junction" cx="308" cy="316" r="12" />
+              <circle class="station station--terminal" cx="548" cy="316" r="17" />
+            </svg>
+
+            <div class="route__label route__label--ai">
+              <span>Applied AI</span>
+              <strong>Jarwis</strong>
+              <small>агенты · память · tools</small>
+            </div>
+
+            <div class="route__metric route__metric--speed">
+              <strong>~31 мс</strong>
+              <span>fast-path без LLM</span>
+            </div>
+
+            <div class="route__label route__label--frontend">
+              <span>Frontend</span>
+              <strong>Angular / Nx</strong>
+              <small>архитектура · UI · contracts</small>
+            </div>
+
+            <div class="route__metric route__metric--years">
+              <strong>7+ лет</strong>
+              <span>enterprise frontend</span>
+            </div>
+
+            <div class="route__junction">
+              <span>одна практика</span>
+              <strong>Product engineering</strong>
+            </div>
+
+            <a class="route__terminal" href="#jarwis">
+              <span>Главная станция</span>
+              <strong>Production</strong>
+              <small>Открыть кейс Jarwis →</small>
+            </a>
+          </div>
+
+          <div class="route__legend" aria-label="Легенда карты">
+            <span><i class="route__dot route__dot--ai" aria-hidden="true"></i> Applied AI</span>
+            <span><i class="route__dot route__dot--frontend" aria-hidden="true"></i> Frontend</span>
+            <span class="route__legend-note">Факты вместо списка технологий</span>
+          </div>
         </figure>
       </section>
 
-      <section class="proof-strip shell" aria-label="Ключевые факты">
-        <article>
-          <strong>7+ лет</strong>
-          <span>TypeScript / frontend</span>
-        </article>
-        <article>
-          <strong>4 приложения</strong>
-          <span>+ общая UI-библиотека</span>
-        </article>
-        <article>
-          <strong>с весны 2026</strong>
-          <span>production AI</span>
-        </article>
-      </section>
-
-      <section class="section shell" aria-labelledby="tasks-title">
-        <div class="section-heading">
-          <p class="eyebrow">01 · Какие задачи беру</p>
-          <h2 id="tasks-title">От архитектуры до работающего контура.</h2>
-        </div>
-
-        <div class="task-grid">
-          <article class="task-card">
-            <span class="task-card__number">01</span>
-            <h3>Сложный frontend</h3>
-            <p>
-              Архитектура Angular/Nx, библиотеки компонентов, сложные формы,
-              интеграции и миграции.
-            </p>
-            <span class="task-card__tag">enterprise web</span>
-          </article>
-          <article class="task-card">
-            <span class="task-card__number">02</span>
-            <h3>AI внутри продукта</h3>
-            <p>
-              Агенты, tool use, память/RAG, детерминированные предохранители, evals и
-              контроль стоимости.
-            </p>
-            <span class="task-card__tag">applied AI</span>
-          </article>
-          <article class="task-card">
-            <span class="task-card__number">03</span>
-            <h3>Внутренние инструменты</h3>
-            <p>
-              Быстрый прототип на реальном сценарии, затем надёжная инженерная
-              обвязка и эксплуатация.
-            </p>
-            <span class="task-card__tag">zero → production</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="jarwis" id="jarwis" aria-labelledby="jarwis-title">
+      <section class="case" id="jarwis" aria-labelledby="jarwis-title">
         <div class="shell">
-          <div class="jarwis__intro">
-            <div>
-              <p class="eyebrow eyebrow--dark">02 · Главный кейс / Jarwis</p>
-              <h2 id="jarwis-title">Не обёртка над API, а production-система вокруг LLM.</h2>
+          <header class="case__header">
+            <p class="destination"><i class="destination__dot" aria-hidden="true"></i> Главная станция · Applied AI</p>
+            <div class="case__heading">
+              <h2 id="jarwis-title">Jarwis</h2>
+              <p>Не обёртка над API, а production-система вокруг LLM.</p>
             </div>
-            <p>
-              Персональный Telegram-ассистент с инструментами, двухслойной памятью,
-              обработкой текста, голоса и PDF — и детерминированными контурами для
-              критичных сценариев.
-            </p>
-          </div>
+          </header>
 
-          <div class="jarwis__body">
-            <div class="system-map" aria-label="Упрощённая архитектура Jarwis">
-              <div class="system-map__caption">
-                <span>request flow</span>
-                <span>production · 2026</span>
+          <div class="request-map" aria-label="Упрощённый путь запроса в Jarwis">
+            <div class="request-map__meta">
+              <span>Путь запроса</span>
+              <span>Текст · голос · PDF</span>
+            </div>
+
+            <div class="request-map__body">
+              <div class="request-node request-node--start">
+                <span>Вход</span>
+                <strong>Запрос</strong>
+                <small>одна точка входа</small>
               </div>
-              <div class="system-map__ingress">Текст <i>·</i> Голос <i>·</i> PDF</div>
-              <div class="flow-line" aria-hidden="true"></div>
-              <div class="system-node system-node--primary">
-                <span>01 / route</span>
+
+              <div class="request-connector request-connector--one" aria-hidden="true"><i></i></div>
+
+              <div class="request-node request-node--coordinator">
+                <span>Маршрутизация</span>
                 <strong>Coordinator</strong>
-                <small>определяет путь запроса</small>
+                <small>определяет путь</small>
               </div>
-              <div class="flow-split" aria-hidden="true"><span></span></div>
-              <div class="system-map__branch">
-                <div class="system-node">
-                  <span>known trigger</span>
-                  <strong>Deterministic<br />fast-path</strong>
-                  <small>~31 ms · 0 LLM calls</small>
+
+              <div class="request-split" aria-hidden="true"><i></i><b></b></div>
+
+              <div class="request-branches">
+                <div class="request-node request-node--fast">
+                  <span>Известный триггер</span>
+                  <strong>Deterministic fast-path</strong>
+                  <small>~31 мс · 0 LLM calls</small>
                 </div>
-                <div class="system-node">
-                  <span>open request</span>
-                  <strong>Specialized<br />agents</strong>
+                <div class="request-node request-node--agents">
+                  <span>Открытый запрос</span>
+                  <strong>Specialized agents</strong>
                   <small>reasoning · tool use</small>
                 </div>
               </div>
-              <div class="system-map__foundation">
-                <span>domain tools</span>
-                <span>working memory ↔ long-term memory</span>
-              </div>
-            </div>
 
-            <div class="jarwis__story">
-              <p class="jarwis__kicker">Проблема → решение → результат</p>
-              <ol>
-                <li>
-                  <span>01</span>
-                  <p>
-                    <strong>Fast-path до LLM</strong>
-                    Критичные триггеры вынесены до модели: быстрее и предсказуемее.
-                  </p>
-                </li>
-                <li>
-                  <span>02</span>
-                  <p>
-                    <strong>Cache-first prompts</strong>
-                    Static/dynamic split сохраняет prefix cache и снижает стоимость.
-                  </p>
-                </li>
-                <li>
-                  <span>03</span>
-                  <p>
-                    <strong>Scenario harness</strong>
-                    Диалоги, routing и tool use проверяются на сценариях из реальных
-                    ошибок.
-                  </p>
-                </li>
-              </ol>
-              <a class="case-link" href="#contact">
-                Разобрать инженерный кейс
-                <span aria-hidden="true">→</span>
-              </a>
+              <div class="request-foundation">
+                <span>Domain tools</span>
+                <span>Working memory ↔ long-term memory</span>
+                <span>Scenario harness</span>
+              </div>
             </div>
           </div>
 
-          <div class="metric-grid" aria-label="Результаты Jarwis">
+          <div class="case__story">
+            <div class="case__summary">
+              <h3>Три инженерных решения, которые сделали систему предсказуемее.</h3>
+              <p>
+                Там, где поведение можно определить заранее, модель не вызывается.
+                Там, где нужен reasoning, агент получает узкий набор инструментов,
+                память и проверяемый сценарий.
+              </p>
+            </div>
+
+            <ol class="decision-list">
+              <li>
+                <span class="decision-list__station" aria-hidden="true"></span>
+                <div>
+                  <strong>Fast-path до LLM</strong>
+                  <p>Критичные триггеры вынесены до модели: быстрее и предсказуемее.</p>
+                </div>
+              </li>
+              <li>
+                <span class="decision-list__station" aria-hidden="true"></span>
+                <div>
+                  <strong>Cache-first prompts</strong>
+                  <p>Static/dynamic split сохраняет prefix cache и снижает стоимость.</p>
+                </div>
+              </li>
+              <li>
+                <span class="decision-list__station" aria-hidden="true"></span>
+                <div>
+                  <strong>Scenario harness</strong>
+                  <p>Диалоги, routing и tool use проверяются на сценариях из реальных ошибок.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="proof-rail" aria-label="Результаты Jarwis">
             <article>
               <strong>~31 <small>мс</small></strong>
-              <span>вместо ~2575 мс — fast-path без LLM</span>
+              <p>против ~2575 мс: fast-path без LLM</p>
             </article>
             <article>
               <strong>36 → 50<small>%</small></strong>
-              <span>cache hit — около −22% input cost</span>
+              <p>cache hit, около −22% input cost</p>
             </article>
             <article>
               <strong>2454</strong>
-              <span>автоматических теста в 277 suites</span>
+              <p>автоматических теста в 277 suites</p>
             </article>
           </div>
+
+          <a class="case__link" href="#contact">Обсудить похожую систему <span aria-hidden="true">→</span></a>
         </div>
       </section>
 
-      <section class="section shell frontend" id="frontend" aria-labelledby="frontend-title">
-        <div class="section-heading section-heading--split">
+      <section class="frontend shell" id="frontend" aria-labelledby="frontend-title">
+        <header class="frontend__header">
+          <p class="destination destination--frontend"><i class="destination__dot" aria-hidden="true"></i> Базовая линия · Frontend</p>
           <div>
-            <p class="eyebrow">03 · Enterprise Frontend</p>
             <h2 id="frontend-title">AI-направление стоит на семи годах frontend-инженерии.</h2>
+            <p>
+              Развиваю Angular/Nx-монорепо, сложные формы и бизнес-процессы,
+              общие компоненты и contract-first интеграции без остановки
+              продуктовой разработки.
+            </p>
           </div>
-          <p>
-            Развиваю Angular/Nx-монорепо, сложные формы и бизнес-процессы, общие
-            компоненты и contract-first интеграции — без остановки продуктовой
-            разработки.
-          </p>
+        </header>
+
+        <div class="platform" aria-label="Схема frontend-платформы">
+          <div class="platform__meta">
+            <span>Карта платформы</span>
+            <span>Angular 8 → 21</span>
+          </div>
+          <div class="platform__apps">
+            <span>App A</span>
+            <span>App B</span>
+            <span>App C</span>
+            <span>App D</span>
+          </div>
+          <div class="platform__routes" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+          </div>
+          <div class="platform__shared">
+            <span>Общая линия</span>
+            <strong>Shared UI library</strong>
+            <small>components · dynamic forms · contracts</small>
+          </div>
+          <div class="platform__foundation">
+            <span>Codegen</span>
+            <span>Contract-first backend</span>
+            <span>Nx monorepo</span>
+          </div>
         </div>
 
-        <div class="frontend__content">
-          <div class="architecture-map" aria-label="Схема frontend-платформы">
-            <div class="architecture-map__topline">
-              <span>platform map</span>
-              <span>Angular 8 → 21</span>
-            </div>
-            <div class="architecture-map__apps">
-              <span>APP 01</span>
-              <span>APP 02</span>
-              <span>APP 03</span>
-              <span>APP 04</span>
-            </div>
-            <div class="architecture-map__connector" aria-hidden="true"></div>
-            <div class="architecture-map__shared">
-              <strong>Shared UI library</strong>
-              <span>components · dynamic forms · contracts</span>
-            </div>
-            <div class="architecture-map__bottom">
-              <span>codegen</span>
-              <span>contract-first backend</span>
-            </div>
-          </div>
-
-          <ul class="fact-list">
-            <li><span>01</span>Angular 8 → 21</li>
-            <li><span>02</span>Nx-монорепо: 4 приложения и общая библиотека</li>
-            <li><span>03</span>Dynamic forms и сложные бизнес-процессы</li>
-            <li><span>04</span>Frontend-гильдия около 300 человек</li>
+        <div class="frontend__facts">
+          <p>Что выдерживает эта линия</p>
+          <ul>
+            <li><span class="fact-station" aria-hidden="true"></span><strong>Angular 8 → 21</strong><small>эволюция без остановки продукта</small></li>
+            <li><span class="fact-station" aria-hidden="true"></span><strong>4 приложения + UI-библиотека</strong><small>общая платформа вместо копирования</small></li>
+            <li><span class="fact-station" aria-hidden="true"></span><strong>Dynamic forms</strong><small>сложные бизнес-процессы и интеграции</small></li>
+            <li><span class="fact-station" aria-hidden="true"></span><strong>Frontend-гильдия ~300 человек</strong><small>решения должны масштабироваться на команды</small></li>
           </ul>
         </div>
       </section>
 
       <section class="lab" id="lab" aria-labelledby="lab-title">
         <div class="shell lab__inner">
-          <div class="section-heading">
-            <p class="eyebrow">04 · AI Tools / Lab</p>
-            <h2 id="lab-title">Маленькие инструменты для реальных инженерных вопросов.</h2>
-          </div>
+          <header class="lab__header">
+            <p>Побочные маршруты</p>
+            <h2 id="lab-title">Небольшие инструменты для реальных инженерных вопросов.</h2>
+          </header>
 
-          <div class="lab-list">
+          <div class="lab__list">
             <article>
               <code>voice-svc</code>
               <p>STT, TTS-клон голоса и web UI</p>
@@ -308,8 +336,19 @@
       </section>
 
       <section class="about shell" aria-labelledby="about-title">
-        <p class="eyebrow">05 · Человек за системами</p>
+        <figure class="about__portrait">
+          <img
+            src="./assets/eugene-kvach.jpg"
+            alt="Евгений Квач"
+            width="959"
+            height="1280"
+            loading="lazy"
+          />
+          <figcaption>Евгений Квач · Web × Applied AI</figcaption>
+        </figure>
+
         <div class="about__copy">
+          <p>Человек за системами</p>
           <h2 id="about-title">В разработку пришёл из продаж.</h2>
           <p>
             Этот опыт помогает переводить неясную бизнес-проблему в конкретную
@@ -321,16 +360,15 @@
 
       <section class="contact" id="contact" aria-labelledby="contact-title">
         <div class="shell contact__inner">
-          <p class="eyebrow eyebrow--contact">06 · Контакт</p>
+          <p class="contact__route"><i aria-hidden="true"></i> Следующая станция</p>
           <h2 id="contact-title">Есть сложная web- или AI-задача?</h2>
           <div class="contact__footer">
             <p>
-              Могу подключиться к архитектуре, разработке или техническому аудиту на
-              проектной / частичной занятости.
+              Могу подключиться к архитектуре, разработке или техническому аудиту
+              на проектной / частичной занятости.
             </p>
             <a class="button button--contact" href="https://t.me/euhoo">
-              Написать в Telegram
-              <span aria-hidden="true">↗</span>
+              Написать в Telegram <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
@@ -341,13 +379,9 @@
       <div class="shell footer-inner">
         <div>
           <strong>Евгений Квач</strong>
-          <span>Senior Frontend &amp; Applied AI Engineer</span>
+          <span>Senior Frontend × Applied AI Engineer</span>
         </div>
-        <div class="footer-links">
-          <a href="https://t.me/euhoo">Telegram</a>
-          <span>AI-резюме</span>
-          <span>Frontend-резюме</span>
-        </div>
+        <a href="https://t.me/euhoo">Telegram ↗</a>
         <span>© 2026 · eugenekvach.ru</span>
       </div>
     </footer>

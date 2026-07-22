@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-22T14:22:00Z",
+  "title": "Design System: Eugene Kvach Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "route-blue": { "role": "primary", "displayName": "Route Blue", "canonical": "#175cff" },
+      "route-blue-deep": { "role": "primary", "displayName": "Route Blue Deep", "canonical": "#0e42bd" },
+      "cool-canvas": { "role": "neutral", "displayName": "Cool Canvas", "canonical": "#f3f5f8" },
+      "paper-white": { "role": "neutral", "displayName": "Paper White", "canonical": "#ffffff" },
+      "signal-ink": { "role": "neutral", "displayName": "Signal Ink", "canonical": "#101217" },
+      "raised-ink": { "role": "neutral", "displayName": "Raised Ink", "canonical": "#171a20" },
+      "muted-steel": { "role": "neutral", "displayName": "Muted Steel", "canonical": "#5d6470" },
+      "route-line": { "role": "neutral", "displayName": "Route Line", "canonical": "#d7dbe3" },
+      "route-line-strong": { "role": "neutral", "displayName": "Route Line Strong", "canonical": "#a8afb9" },
+      "dark-line": { "role": "neutral", "displayName": "Dark Line", "canonical": "#303641" },
+      "dark-line-strong": { "role": "neutral", "displayName": "Dark Line Strong", "canonical": "#4a5260" },
+      "dark-panel": { "role": "neutral", "displayName": "Dark Panel", "canonical": "#262b34" },
+      "dark-muted": { "role": "neutral", "displayName": "Dark Muted", "canonical": "#aeb6c5" },
+      "blue-on-dark": { "role": "primary", "displayName": "Blue on Dark", "canonical": "#dbe4ff" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero thesis only." },
+      "body": { "displayName": "Body", "purpose": "Explanatory copy and navigation." },
+      "label": { "displayName": "Route Label", "purpose": "Operational metadata and map categories." },
+      "micro": { "displayName": "Operational Micro-scale", "purpose": "Diagram labels from 9px through 16px, assigned by role." }
+    },
+    "shadows": [
+      {
+        "name": "route-sheet",
+        "value": "18px 22px 50px rgba(28, 38, 60, 0.08)",
+        "purpose": "The primary route map only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "route-arrival",
+        "value": "900ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "One initial drawing of the hero routes."
+      },
+      {
+        "name": "control-response",
+        "value": "180ms ease-out",
+        "purpose": "Hover and focus response on controls."
+      }
+    ],
+    "breakpoints": [
+      { "name": "stack", "value": "1120px" },
+      { "name": "mobile", "value": "680px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Square high-contrast action with a directional arrow.",
+      "html": "<a class=\"button button--primary\" href=\"#\">Смотреть кейс <span aria-hidden=\"true\">→</span></a>",
+      "css": ".button--primary { min-height: 52px; padding: 0 18px; background: #101217; color: #fff; } .button--primary:hover { background: #175cff; transform: translateY(-2px); }"
+    },
+    {
+      "name": "Route Station",
+      "kind": "custom",
+      "description": "White-centered circular node whose stroke owns the route color.",
+      "html": "<span class=\"station station--ai\" aria-hidden=\"true\"></span>",
+      "css": ".station { width: 20px; height: 20px; border: 6px solid currentColor; border-radius: 999px; background: #fff; } .station--ai { color: #175cff; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Production Interchange",
+    "overview": "A minimalist wayfinding system for two engineering practices that meet at production. Real evidence is encoded as stations, traces, and platform diagrams.",
+    "keyCharacteristics": [
+      "Cobalt Applied AI route and near-black Frontend route",
+      "Square operational surfaces with circular stations",
+      "Evidence attached to system diagrams",
+      "One Cyrillic sans family with decisive hierarchy"
+    ],
+    "rules": [
+      {
+        "name": "The Route Ownership Rule",
+        "body": "Cobalt marks Applied AI or production convergence; it is not generic emphasis.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Voice Rule",
+        "body": "Use one type family and build hierarchy with scale, weight, and measure.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Attach every route graphic to real meaning.",
+      "Reorganize diagrams for mobile instead of shrinking them."
+    ],
+    "donts": [
+      "Do not use cream, terracotta, serif display type, gradients, glow, or decorative grids.",
+      "Do not structure pages as repeated same-size cards."
+    ]
+  }
+}
