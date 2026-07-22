@@ -64,6 +64,13 @@
       "description": "White-centered circular node whose stroke owns the route color.",
       "html": "<span class=\"station station--ai\" aria-hidden=\"true\"></span>",
       "css": ".station { width: 20px; height: 20px; border: 6px solid currentColor; border-radius: 999px; background: #fff; } .station--ai { color: #175cff; }"
+    },
+    {
+      "name": "Context Hint",
+      "kind": "disclosure",
+      "description": "Square just-in-time explanation for technical evidence and system nodes; works with hover, tap, keyboard, click-away, and Escape dismissal.",
+      "html": "<details class=\"info-tip\"><summary aria-label=\"Пояснить термин\">?</summary><div class=\"info-tip__body\"><b>Термин</b><p>Короткое объяснение в контексте.</p></div></details>",
+      "css": ".info-tip summary { width: 30px; height: 30px; border: 1px solid currentColor; } .info-tip__body { width: min(286px, calc(100vw - 32px)); }"
     }
   ],
   "narrative": {

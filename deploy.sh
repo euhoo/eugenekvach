@@ -69,11 +69,13 @@ deploy_verify_live() {
     deploy_assert_redirect "https://www.eugenekvach.ru/" "$DEPLOY_URL/" || return 1
 
     deploy_assert_status "200" "$DEPLOY_URL/?revision=$revision" || return 1
+    deploy_assert_status "200" "$DEPLOY_URL/helper/?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/styles.css?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/assets/eugene-kvach.jpg?revision=$revision" || return 1
     deploy_assert_status "404" "$DEPLOY_URL/deploy-smoke-not-found?revision=$revision" || return 1
 
     deploy_assert_hash "index.html" "$revision" || return 1
+    deploy_assert_hash "helper/index.html" "$revision" || return 1
     deploy_assert_hash "styles.css" "$revision" || return 1
     deploy_assert_hash "assets/eugene-kvach.jpg" "$revision" || return 1
 }
@@ -89,18 +91,22 @@ deploy_validate_source() {
     deploy_log "1/5" "Validating local source"
 
     [[ -f "$DEPLOY_SOURCE/index.html" ]] || deploy_fail "src/index.html is missing"
+    [[ -f "$DEPLOY_SOURCE/helper/index.html" ]] || deploy_fail "src/helper/index.html is missing"
     [[ -f "$DEPLOY_SOURCE/styles.css" ]] || deploy_fail "src/styles.css is missing"
     [[ -f "$DEPLOY_SOURCE/assets/eugene-kvach.jpg" ]] || deploy_fail "Hero image is missing"
 
-    if grep -Eiq 'noindex|nofollow' "$DEPLOY_SOURCE/index.html"; then
+    if grep -Eiq 'noindex|nofollow' "$DEPLOY_SOURCE/index.html" "$DEPLOY_SOURCE/helper/index.html"; then
         deploy_fail "production HTML contains noindex or nofollow"
     fi
 
     local css_hash
+    local html_file
     css_hash="$(shasum -a 256 "$DEPLOY_SOURCE/styles.css" | awk '{print substr($1, 1, 12)}')"
-    if ! grep -Fq "href=\"./styles.css?v=$css_hash\"" "$DEPLOY_SOURCE/index.html"; then
-        deploy_fail "stylesheet cache-buster is stale; expected styles.css?v=$css_hash"
-    fi
+    while IFS= read -r html_file; do
+        if ! grep -Fq "styles.css?v=$css_hash\"" "$html_file"; then
+            deploy_fail "stylesheet cache-buster is stale in ${html_file#"$DEPLOY_ROOT/"}; expected styles.css?v=$css_hash"
+        fi
+    done < <(find "$DEPLOY_SOURCE" -type f -name '*.html' -print)
 
     git -C "$DEPLOY_ROOT" diff --check
 
@@ -118,6 +124,7 @@ main() {
     deploy_require_command rsync
     deploy_require_command ssh
     deploy_require_command curl
+    deploy_require_command find
     deploy_require_command shasum
 
     deploy_validate_source

@@ -4,7 +4,7 @@ Source code for [eugenekvach.ru](https://eugenekvach.ru) — the personal websit
 
 ## Current version
 
-The first release is a static HTML/CSS landing page in `src/`. It is intentionally framework-free so the approved visual direction can go live while the deeper `/ai`, `/frontend`, and `/helper` routes are developed.
+The current release is a static HTML/CSS site in `src/`: the home page and the proof-first Jarwis case study at `/helper/`. It is intentionally framework-free while the deeper `/ai` and `/frontend` routes are developed.
 
 Run it locally:
 
@@ -36,6 +36,7 @@ Preview the synchronization without changing GitHub or production:
 - `DESIGN.md` — durable visual system for the site;
 - `.impeccable/` — machine-readable design tokens and route-level design briefs;
 - `src/index.html` — the Russian-first home page;
+- `src/helper/index.html` — the proof-first Jarwis engineering case study;
 - `src/styles.css` — design tokens, responsive layout, and diagrams;
 - `src/assets/` — optimized public assets.
 - `deploy.sh` — guarded production deployment with backup, verification, and rollback.

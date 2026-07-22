@@ -1,0 +1,542 @@
+<!doctype html>
+<!--
+THESIS: Jarwis is explained through engineering decisions and their measured consequences, not a feature gallery or technology logo wall.
+OWN-WORLD: The established production-interchange system expands into a decision dossier: cobalt AI routes, signal-black system fields, square records, and factual station markers.
+STORY: The reader sees proof first, follows real request paths, then audits four decisions from failure mode through trade-off and result before opening the demo or contacting Eugene.
+FIRST VIEWPORT: A cobalt case header holds the title and system passport; a five-point evidence rail closes the viewport with the primary demo action beside the thesis.
+FORM: Read-mode engineering decision record, grounded structure 4 from surface seed 7c072fe7.
+-->
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Jarwis — production AI-ассистент в Telegram. Архитектура, deterministic fast-path, cache-first prompts, сценарные тесты и двухслойная память."
+    />
+    <title>Jarwis — engineering case study · Евгений Квач</title>
+    <link rel="canonical" href="https://eugenekvach.ru/helper/" />
+    <link rel="icon" href="data:," />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content="https://eugenekvach.ru/helper/" />
+    <meta property="og:title" content="Jarwis — production AI-ассистент в Telegram" />
+    <meta
+      property="og:description"
+      content="Multi-agent orchestration, tools, память и детерминированные контуры вокруг LLM — с измерениями latency, стоимости и качества."
+    />
+    <meta property="og:image" content="https://eugenekvach.ru/assets/eugene-kvach.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css?v=a2a8366bf5fb" />
+  </head>
+  <body class="case-page">
+    <a class="skip-link" href="#content">К основному содержанию</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="identity" href="../" aria-label="Евгений Квач, главная страница">
+          <span class="identity__mark" aria-hidden="true">ЕК</span>
+          <span class="identity__name">Евгений Квач</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Основная навигация">
+          <a href="../#jarwis"><i class="nav-dot nav-dot--ai" aria-hidden="true"></i>AI</a>
+          <a href="../#frontend"><i class="nav-dot" aria-hidden="true"></i>Frontend</a>
+          <a class="site-nav__active" href="./" aria-current="page">Jarwis</a>
+          <a class="site-nav__contact" href="https://t.me/euhoo">Связаться ↗</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content">
+      <section class="helper-hero" aria-labelledby="helper-title">
+        <div class="shell helper-hero__inner">
+          <div class="helper-hero__copy">
+            <p class="case-marker"><i aria-hidden="true"></i> Engineering case study · production с весны 2026</p>
+            <h1 id="helper-title">Jarwis: production AI-ассистент в Telegram.</h1>
+            <p class="helper-hero__lead">
+              Multi-agent orchestration, tool use, двухслойная память и
+              детерминированные контуры вокруг LLM с измерениями latency,
+              стоимости и качества.
+            </p>
+            <div class="helper-hero__actions">
+              <a class="button button--light" href="https://t.me/own_dr_bot" target="_blank" rel="noreferrer">
+                Открыть живое демо <span aria-hidden="true">↗</span>
+              </a>
+              <a class="button button--blue-quiet" href="#architecture">Смотреть архитектуру ↓</a>
+            </div>
+            <p class="privacy-note">
+              Это инженерный кейс, не медицинский сервис. Пользовательские данные,
+              реальные PDF и приватные логи не публикуются.
+            </p>
+          </div>
+
+          <aside class="system-passport" aria-label="Паспорт системы Jarwis">
+            <div class="system-passport__meta">
+              <span>Система / Jarwis</span>
+              <span>Production</span>
+            </div>
+            <dl>
+              <div>
+                <dt>Интерфейс</dt>
+                <dd>Telegram · текст · голос · PDF</dd>
+              </div>
+              <div>
+                <dt>Оркестрация</dt>
+                <dd>Coordinator · specialized agents · tools</dd>
+              </div>
+              <div>
+                <dt>Данные</dt>
+                <dd>PostgreSQL · pgvector · two-layer memory</dd>
+              </div>
+              <div>
+                <dt>Эксплуатация</dt>
+                <dd>Limits · schedulers · CI/CD · self-hosted runner</dd>
+              </div>
+            </dl>
+            <div class="system-passport__route" aria-hidden="true">
+              <i></i><i></i><i></i><i></i>
+            </div>
+          </aside>
+        </div>
+
+        <div class="shell evidence-rail" aria-label="Ключевые результаты Jarwis">
+          <article>
+            <strong>×80</strong>
+            <span>ускорение fast-path</span>
+            <details class="info-tip info-tip--inverse">
+              <summary aria-label="Как рассчитано ускорение в 80 раз">?</summary>
+              <div class="info-tip__body"><b>Как читать</b><p>Округлённое отношение полного LLM-пути (~2575 мс) к детерминированному fast-path (~31 мс).</p></div>
+            </details>
+          </article>
+          <article>
+            <strong>~31 мс</strong>
+            <span>вместо ~2575 мс</span>
+            <details class="info-tip info-tip--inverse">
+              <summary aria-label="Что означает результат около 31 миллисекунды">?</summary>
+              <div class="info-tip__body"><b>Что измерено</b><p>Время выполнения известного capability-триггера через fast-path. На этом пути модель не вызывается.</p></div>
+            </details>
+          </article>
+          <article>
+            <strong>−22%</strong>
+            <span>оценка input cost</span>
+            <details class="info-tip info-tip--inverse">
+              <summary aria-label="Как рассчитано снижение input cost">?</summary>
+              <div class="info-tip__body"><b>Что изменилось</b><p>Оценочная экономия стоимости input-токенов после роста cache hit с 36% до 50%.</p></div>
+            </details>
+          </article>
+          <article>
+            <strong>2454</strong>
+            <span>теста · 277 suites</span>
+            <details class="info-tip info-tip--inverse">
+              <summary aria-label="Какие тесты входят в число 2454">?</summary>
+              <div class="info-tip__body"><b>Состав набора</b><p>Unit, integration, DB и scenario tests. Это общий смешанный набор, а не 2454 unit-теста.</p></div>
+            </details>
+          </article>
+          <article>
+            <strong>2</strong>
+            <span>бага до релиза</span>
+            <details class="info-tip info-tip--inverse">
+              <summary aria-label="Что означает два бага до релиза">?</summary>
+              <div class="info-tip__body"><b>Практический эффект</b><p>Scenario harness воспроизвёл два production-дефекта до того, как исправления попали в релиз.</p></div>
+            </details>
+          </article>
+        </div>
+        <p class="evidence-help"><span aria-hidden="true">?</span> Нажмите на знак, чтобы увидеть контекст метрики.</p>
+      </section>
+
+      <nav class="case-nav" aria-label="Навигация по кейсу">
+        <div class="shell case-nav__inner">
+          <a href="#context">Контекст</a>
+          <a href="#architecture">Архитектура</a>
+          <a href="#decisions">Решения</a>
+          <a href="#data">Данные</a>
+          <a href="#operations">Production</a>
+        </div>
+      </nav>
+
+      <section class="helper-context shell" id="context" aria-labelledby="context-title">
+        <p class="section-route"><i aria-hidden="true"></i> Контекст и ограничения</p>
+        <div class="helper-context__body">
+          <h2 id="context-title">Подключить LLM API было самой простой частью.</h2>
+          <p class="helper-context__lead">
+            Сложность началась там, где свободное поведение модели встретилось
+            с персональными данными, структурированной записью и production-ожиданиями.
+          </p>
+          <ul class="constraint-list">
+            <li><strong>Tool call не гарантирован.</strong><span>Модель может ответить прозой вместо вызова нужного инструмента.</span></li>
+            <li><strong>История может устареть.</strong><span>Старый диалог способен подменить свежий результат сервиса.</span></li>
+            <li><strong>Динамика ломает cache.</strong><span>Изменение prefix повышает latency и стоимость input-токенов.</span></li>
+            <li><strong>Память накапливает мусор.</strong><span>Без lifecycle появляются дубли и противоречия.</span></li>
+            <li><strong>Unit-теста недостаточно.</strong><span>Нужно проверять диалог, routing, tools и запись в БД вместе.</span></li>
+            <li><strong>Данные нужно разделять.</strong><span>Пользовательские контуры не должны пересекаться.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="architecture" id="architecture" aria-labelledby="architecture-title">
+        <div class="shell architecture__header">
+          <p class="section-route section-route--dark"><i aria-hidden="true"></i> Карта запросов</p>
+          <div>
+            <h2 id="architecture-title">Один вход. Четыре принципиально разных пути.</h2>
+            <p>
+              Выберите сценарий: схема подсветит только те слои, которые реально
+              участвуют в обработке. Без переключения вся архитектура остаётся читаемой.
+            </p>
+            <p class="architecture__hint-key"><span aria-hidden="true">?</span> Наведите курсор или нажмите, чтобы разобрать узел.</p>
+          </div>
+        </div>
+
+        <fieldset class="path-selector shell">
+          <legend class="visually-hidden">Выберите путь запроса</legend>
+          <input type="radio" name="request-path" id="path-fast" checked />
+          <input type="radio" name="request-path" id="path-agent" />
+          <input type="radio" name="request-path" id="path-memory" />
+          <input type="radio" name="request-path" id="path-pdf" />
+
+          <div class="path-tabs">
+            <label for="path-fast">Fast-path</label>
+            <label for="path-agent">Agent + tools</label>
+            <label for="path-memory">Memory</label>
+            <label for="path-pdf">PDF</label>
+          </div>
+
+          <div class="path-map" aria-label="Архитектура Jarwis">
+            <div class="path-map__meta">
+              <span>request trace</span>
+              <span>Telegram → result</span>
+            </div>
+            <div class="path-map__body">
+              <div class="path-node is-shared">
+                <span>Вход</span>
+                <strong>Текст · голос · PDF</strong>
+                <details class="info-tip">
+                  <summary aria-label="Пояснить узел Вход">?</summary>
+                  <div class="info-tip__body"><b>Единая точка входа</b><p>Текст приходит сразу в routing. Голос сначала проходит ASR, а PDF — отдельный структурный разбор.</p></div>
+                </details>
+              </div>
+              <div class="path-link" aria-hidden="true"><i></i></div>
+              <div class="path-node is-shared">
+                <span>Transport</span>
+                <strong>Telegram / Telegraf</strong>
+                <details class="info-tip">
+                  <summary aria-label="Пояснить узел Telegram transport">?</summary>
+                  <div class="info-tip__body"><b>Транспортный слой</b><p>Telegraf принимает Telegram-событие и передаёт запрос в core системы.</p></div>
+                </details>
+              </div>
+              <div class="path-link" aria-hidden="true"><i></i></div>
+              <div class="path-node is-shared">
+                <span>Core</span>
+                <strong>Coordinator</strong>
+                <details class="info-tip">
+                  <summary aria-label="Пояснить роль Coordinator">?</summary>
+                  <div class="info-tip__body"><b>Диспетчер запроса</b><p>Coordinator определяет тип запроса и выбирает маршрут: fast-path, специализированный агент или document flow.</p></div>
+                </details>
+              </div>
+
+              <div class="path-branches">
+                <div class="path-node is-fast">
+                  <span>Known trigger</span>
+                  <strong>Deterministic fast-path</strong>
+                  <small>~31 мс · 0 LLM calls</small>
+                  <details class="info-tip">
+                    <summary aria-label="Пояснить deterministic fast-path">?</summary>
+                    <div class="info-tip__body"><b>Без участия модели</b><p>Заранее известный intent сразу вызывает нужный обработчик. Это даёт одинаковый результат и не тратит LLM-вызов.</p></div>
+                  </details>
+                </div>
+                <div class="path-node is-agent is-memory">
+                  <span>Open request</span>
+                  <strong>Specialized agents</strong>
+                  <small>reasoning · function calling</small>
+                  <details class="info-tip">
+                    <summary aria-label="Пояснить специализированных агентов">?</summary>
+                    <div class="info-tip__body"><b>Узкая зона ответственности</b><p>Агент решает предметный сценарий, получает ограниченный набор tools и вызывает их через function calling.</p></div>
+                  </details>
+                </div>
+                <div class="path-node is-pdf">
+                  <span>Document route</span>
+                  <strong>PDF parser + matcher</strong>
+                  <small>structured bulk write</small>
+                  <details class="info-tip">
+                    <summary aria-label="Пояснить обработку PDF">?</summary>
+                    <div class="info-tip__body"><b>Структура вместо пересказа</b><p><code>pdfjs-dist</code> извлекает текст и координаты, matcher связывает поля, затем данные сохраняются bulk-путём.</p></div>
+                  </details>
+                </div>
+              </div>
+
+              <div class="path-foundation">
+                <div class="path-node is-agent is-memory">
+                  <span>Tools</span>
+                  <strong>Domain services</strong>
+                  <details class="info-tip">
+                    <summary aria-label="Пояснить domain tools">?</summary>
+                    <div class="info-tip__body"><b>Исполняемый слой</b><p>Tools дают агенту предметные операции чтения и структурированной записи через обычные сервисы приложения.</p></div>
+                  </details>
+                </div>
+                <div class="path-node is-memory is-pdf">
+                  <span>Data</span>
+                  <strong>PostgreSQL + pgvector</strong>
+                  <details class="info-tip">
+                    <summary aria-label="Пояснить слой PostgreSQL и pgvector">?</summary>
+                    <div class="info-tip__body"><b>Данные и recall</b><p>PostgreSQL хранит структуру, а pgvector помогает находить долгосрочные факты по смысловой близости.</p></div>
+                  </details>
+                </div>
+                <div class="path-node is-memory">
+                  <span>Lifecycle</span>
+                  <strong>Working ↔ long-term memory</strong>
+                  <details class="info-tip">
+                    <summary aria-label="Пояснить два слоя памяти">?</summary>
+                    <div class="info-tip__body"><b>Два срока жизни</b><p>Working memory держит временный контекст с TTL. Long-term memory хранит нормализованные и дедуплицированные факты.</p></div>
+                  </details>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="path-copy" aria-live="polite">
+            <article class="path-copy--fast">
+              <strong>Fast-path</strong>
+              <p>Известный capability-триггер завершается до модели. Непокрытые формулировки не угадываются regex-ом, а уходят в общий LLM-контур.</p>
+            </article>
+            <article class="path-copy--agent">
+              <strong>Agent + tools</strong>
+              <p>Coordinator выбирает специализированного агента; тот получает узкий набор tools и возвращает результат сервиса, а не ответ из старой истории.</p>
+            </article>
+            <article class="path-copy--memory">
+              <strong>Memory</strong>
+              <p>Временный контекст живёт в working memory. Долгосрочные факты проходят recall, нормализацию и дедупликацию в PostgreSQL/pgvector.</p>
+            </article>
+            <article class="path-copy--pdf">
+              <strong>PDF</strong>
+              <p><code>pdfjs-dist</code> извлекает структуру, координатный matcher связывает поля, после чего данные сохраняются детерминированным bulk-путём.</p>
+            </article>
+          </div>
+        </fieldset>
+      </section>
+
+      <div id="decisions">
+        <section class="decision" id="fast-path" aria-labelledby="fast-title">
+          <div class="shell decision__layout">
+            <aside class="decision__meta">
+              <span>Decision 01</span>
+              <strong>Надёжность до LLM</strong>
+              <i aria-hidden="true"></i>
+            </aside>
+            <article class="decision__record">
+              <h2 id="fast-title">Критичный интерфейс нельзя гарантировать одним prompt.</h2>
+              <details class="decision-note">
+                <summary>Что значит deterministic fast-path?</summary>
+                <p>Для известного intent результат задаёт код, а не выбор модели. Общие формулировки по-прежнему уходят в LLM-контур.</p>
+              </details>
+              <div class="decision__grid">
+                <div><h3>Проблема</h3><p>Модель иногда отвечала текстом вместо ожидаемого интерфейса с кнопками. Полный LLM-путь занимал около 2575 мс.</p></div>
+                <div><h3>Решение</h3><p>Статичные capability-триггеры вынесены в regex fast-path, который выполняется до вызова модели.</p></div>
+                <div class="decision__result"><h3>Результат</h3><p><strong>~31 мс · ×80 · 0 LLM calls</strong></p></div>
+                <div><h3>Trade-off</h3><p>Regex не пытается понимать всё. Любая непокрытая формулировка продолжает идти через общий LLM-путь.</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="decision decision--paper" id="cache" aria-labelledby="cache-title">
+          <div class="shell decision__layout">
+            <aside class="decision__meta">
+              <span>Decision 02</span>
+              <strong>Cache-first prompts</strong>
+              <i aria-hidden="true"></i>
+            </aside>
+            <article class="decision__record">
+              <h2 id="cache-title">Сократить prompt недостаточно. Нужно сохранить стабильный prefix.</h2>
+              <details class="decision-note">
+                <summary>Что такое prefix cache?</summary>
+                <p>Провайдер повторно использует вычисления для неизменной начальной части prompt. Поэтому стабильные правила идут первыми, а динамический контекст — после них.</p>
+              </details>
+              <div class="decision__grid">
+                <div><h3>Проблема</h3><p>Динамические блоки меняли начало prompt и снижали cache hit. Механическое сокращение могло удалить load-bearing правила.</p></div>
+                <div><h3>Решение</h3><p>Static и dynamic части разделены; system prompts сжаты только после проверки критичных правил поведения.</p></div>
+                <div class="decision__result"><h3>Результат</h3><p><strong>36% → 50% cache hit · около −22% input cost</strong></p></div>
+                <div><h3>Дополнительно</h3><p>Medical-agent prompt уменьшен на 49%, main-agent prompt — на 47%.</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="decision decision--dark" id="tests" aria-labelledby="tests-title">
+          <div class="shell decision__layout">
+            <aside class="decision__meta">
+              <span>Decision 03</span>
+              <strong>Поведение как контракт</strong>
+              <i aria-hidden="true"></i>
+            </aside>
+            <article class="decision__record">
+              <h2 id="tests-title">Тест функции не доказывает, что работает пользовательский сценарий.</h2>
+              <details class="decision-note">
+                <summary>Что проверяет scenario harness?</summary>
+                <p>Не отдельную функцию, а цепочку: Telegram-диалог, routing, tool calls, ответ пользователю и итоговое изменение данных.</p>
+              </details>
+              <div class="decision__grid">
+                <div><h3>Проблема</h3><p>Unit-тесты не ловили регрессии полного Telegram-диалога: routing, tool use, ответ и запись в PostgreSQL.</p></div>
+                <div><h3>Решение</h3><p>Созданы Telegram-mock harness, сценарии на реальной тестовой БД и regression/golden cases из production-ошибок.</p></div>
+                <div class="decision__result"><h3>Результат</h3><p><strong>2454 теста разных уровней · 277 suites · 2 бага до релиза</strong></p></div>
+                <div><h3>Граница</h3><p>Набор смешанный: unit, integration, DB и scenario tests. Это не 2454 unit-теста.</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="decision" id="memory" aria-labelledby="memory-title">
+          <div class="shell decision__layout">
+            <aside class="decision__meta">
+              <span>Decision 04</span>
+              <strong>Memory lifecycle</strong>
+              <i aria-hidden="true"></i>
+            </aside>
+            <article class="decision__record">
+              <h2 id="memory-title">Vector search не превращает накопленные записи в память.</h2>
+              <details class="decision-note">
+                <summary>Зачем памяти два слоя?</summary>
+                <p>Короткий контекст должен устаревать, а долгосрочные факты — проходить recall, нормализацию и дедупликацию. У них разный lifecycle.</p>
+              </details>
+              <div class="decision__grid">
+                <div><h3>Working memory</h3><p>Временный контекст хранится с TTL и счётчиками обращений.</p></div>
+                <div><h3>Long-term memory</h3><p>PostgreSQL/pgvector отвечает за recall, нормализацию и дедупликацию фактов.</p></div>
+                <div class="decision__result"><h3>Cleanup</h3><p><strong>24 записи → 15 уникальных фактов</strong></p></div>
+                <div><h3>Вывод</h3><p>Память требует отдельного data lifecycle и наблюдаемости, а не только embeddings.</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <section class="data-path shell" id="data" aria-labelledby="data-title">
+        <p class="section-route"><i aria-hidden="true"></i> Структурированная запись</p>
+        <div class="data-path__heading">
+          <h2 id="data-title">Для PDF — отдельный предсказуемый путь.</h2>
+          <p>В публичном кейсе нет реальных медицинских документов. Показан только инженерный контур обработки.</p>
+        </div>
+        <ol class="data-pipeline">
+          <li>
+            <span>PDF</span><strong><code>pdfjs-dist</code></strong><small>структурное извлечение</small>
+            <details class="info-tip info-tip--light">
+              <summary aria-label="Пояснить работу pdfjs-dist">?</summary>
+              <div class="info-tip__body"><b>Извлечение</b><p>Библиотека отдаёт текстовые элементы страницы вместе с их координатами, а не просто сплошной текст.</p></div>
+            </details>
+          </li>
+          <li>
+            <span>Поля</span><strong>Coordinate matcher</strong><small>связь значений и подписей</small>
+            <details class="info-tip info-tip--light">
+              <summary aria-label="Пояснить coordinate matcher">?</summary>
+              <div class="info-tip__body"><b>Сопоставление</b><p>Положение элемента на странице помогает связать подпись поля с расположенным рядом значением.</p></div>
+            </details>
+          </li>
+          <li>
+            <span>Проверка</span><strong>Deterministic mapping</strong><small>предсказуемая структура</small>
+            <details class="info-tip info-tip--light">
+              <summary aria-label="Пояснить deterministic mapping">?</summary>
+              <div class="info-tip__body"><b>Контракт данных</b><p>Извлечённые значения приводятся к заранее определённым полям без свободной интерпретации модели.</p></div>
+            </details>
+          </li>
+          <li>
+            <span>Запись</span><strong>Bulk save</strong><small>один контролируемый контур</small>
+            <details class="info-tip info-tip--light">
+              <summary aria-label="Пояснить bulk save">?</summary>
+              <div class="info-tip__body"><b>Пакетная запись</b><p>Подготовленный набор сохраняется одной управляемой операцией вместо серии независимых LLM-действий.</p></div>
+            </details>
+          </li>
+        </ol>
+      </section>
+
+      <section class="operations" id="operations" aria-labelledby="operations-title">
+        <div class="shell operations__inner">
+          <p class="section-route section-route--dark"><i aria-hidden="true"></i> Production и эксплуатация</p>
+          <div class="operations__heading">
+            <h2 id="operations-title">Система заканчивается не на ответе модели.</h2>
+            <p>Отдельные контуры отвечают за доставку, ограничения и восстановление, не маскируя программные ошибки.</p>
+          </div>
+          <ul class="operations__list">
+            <li><strong>Runtime</strong><span>TypeScript / Node.js core + Telegram transport</span></li>
+            <li><strong>Data layer</strong><span>PostgreSQL / pgvector</span></li>
+            <li><strong>Providers</strong><span>multi-provider LLM API через Vercel AI SDK</span></li>
+            <li><strong>Delivery</strong><span>GitHub Actions + self-hosted runner</span></li>
+            <li><strong>Limits</strong><span>токены, ASR-минуты и стоимость</span></li>
+            <li><strong>Resilience</strong><span>известные transient network errors без blanket-ignore</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="lessons shell" aria-labelledby="lessons-title">
+        <p class="section-route"><i aria-hidden="true"></i> Что изменилось в подходе</p>
+        <div class="lessons__body">
+          <h2 id="lessons-title">Четыре вывода, которые переношу в следующие AI-системы.</h2>
+          <ol>
+            <li><strong>Prompt не является гарантией.</strong><span>Критичные пути требуют deterministic guards.</span></li>
+            <li><strong>Evals проверяют последствия.</strong><span>Ответ модели, tool call, запись в БД и полный сценарий.</span></li>
+            <li><strong>Память — отдельная подсистема.</strong><span>Нормализация, дедупликация и наблюдаемость обязательны.</span></li>
+            <li><strong>Следующий шаг — hybrid contour.</strong><span>Дальнейший deterministic write path и трассировка памяти.</span></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="helper-contact" aria-labelledby="helper-contact-title">
+        <div class="shell helper-contact__inner">
+          <p class="contact__route"><i aria-hidden="true"></i> Следующий запрос</p>
+          <h2 id="helper-contact-title">Нужно встроить LLM в существующий продукт?</h2>
+          <div class="helper-contact__actions">
+            <a class="button button--contact" href="https://t.me/euhoo">Обсудить задачу <span aria-hidden="true">↗</span></a>
+            <a class="helper-contact__demo" href="https://t.me/own_dr_bot" target="_blank" rel="noreferrer">Открыть Jarwis в Telegram ↗</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <div>
+          <strong>Евгений Квач</strong>
+          <span>Senior Frontend × Applied AI Engineer</span>
+        </div>
+        <a href="../">На главную ←</a>
+        <span>© 2026 · eugenekvach.ru</span>
+      </div>
+    </footer>
+
+    <script>
+      const hintPopovers = [...document.querySelectorAll(".info-tip")];
+
+      const closeHint = (hint, restoreFocus = false) => {
+        if (!hint.open) return;
+        hint.open = false;
+        if (restoreFocus) hint.querySelector("summary")?.focus();
+      };
+
+      hintPopovers.forEach((hint) => {
+        hint.querySelector("summary")?.addEventListener("click", () => {
+          if (hint.open) return;
+          hintPopovers.forEach((otherHint) => {
+            if (otherHint !== hint) closeHint(otherHint);
+          });
+        });
+      });
+
+      document.addEventListener("pointerdown", (event) => {
+        hintPopovers.forEach((hint) => {
+          if (!hint.contains(event.target)) closeHint(hint);
+        });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const openHint = document.querySelector(".info-tip[open]");
+        if (!openHint) return;
+        event.preventDefault();
+        closeHint(openHint, true);
+      });
+    </script>
+  </body>
+</html>

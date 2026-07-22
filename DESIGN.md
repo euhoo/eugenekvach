@@ -185,6 +185,10 @@ Navigation pairs concise route names with outlined station dots. The contact act
 
 The signature component uses solid orthogonal paths, white-centered stations, real evidence labels, and an explicit production terminal. The grid is allowed only inside maps and engineering diagrams because it encodes coordinates.
 
+### Context Hint
+
+Technical evidence gets just-in-time explanation through a square `?` disclosure placed beside the claim or node it explains. It opens on hover, tap, or keyboard focus/activation and contains one short definition plus the local consequence. A click outside or `Escape` closes it, and only one popover stays open at a time. Keep the trigger visually quiet, preserve a visible focus state, and never rely on a native `title` tooltip as the only explanation.
+
 ## Do's and Don'ts
 
 ### Do:
