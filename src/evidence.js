@@ -139,13 +139,44 @@
   let lastStoryWheelAt = 0;
   const wheelQuietPeriod = 90;
 
+  const scrollToStoryPosition = (target) => {
+    const root = document.documentElement;
+    const initialScrollBehavior = root.style.scrollBehavior;
+    const start = window.scrollY;
+    const distance = target - start;
+    const duration = reduceMotion.matches ? 0 : 260;
+
+    root.style.scrollBehavior = 'auto';
+
+    if (duration === 0 || Math.abs(distance) < 2) {
+      window.scrollTo(0, target);
+      root.style.scrollBehavior = initialScrollBehavior;
+      return;
+    }
+
+    const startedAt = performance.now();
+    const animate = (now) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const easedProgress = 1 - Math.pow(1 - progress, 4);
+      window.scrollTo(0, start + distance * easedProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+        return;
+      }
+
+      root.style.scrollBehavior = initialScrollBehavior;
+    };
+    requestAnimationFrame(animate);
+  };
+
   const transitionToStoryPosition = (target) => {
     if (!desktopStory.matches || page.classList.contains('evidence-page--min') || storyTransitioning) return false;
     if (Math.abs(window.scrollY - target) < 2) return false;
 
     storyTransitioning = true;
     lastStoryWheelAt = performance.now();
-    window.scrollTo({ top: target, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    scrollToStoryPosition(target);
 
     const startedAt = performance.now();
     const settle = () => {
