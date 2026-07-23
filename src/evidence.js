@@ -234,16 +234,18 @@
       isEditableTarget
     ) return;
 
-    const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 0;
-    if (direction === 0) return;
-
-    const targetStage = currentStoryStage() + direction;
-    if (targetStage < 0 || targetStage > storyStageCount) return;
+    const currentRoute = storyRoutes[modulo(currentStoryStage(), storyCycleLength)];
+    const directionalRoutes = {
+      '#content': { ArrowRight: '#engagement', ArrowDown: '#frontend' },
+      '#engagement': { ArrowLeft: '#content', ArrowDown: '#ai' },
+      '#ai': { ArrowUp: '#engagement', ArrowLeft: '#frontend' },
+      '#frontend': { ArrowUp: '#content', ArrowRight: '#ai' },
+    };
+    const targetRoute = directionalRoutes[currentRoute][event.key];
+    if (!targetRoute) return;
 
     event.preventDefault();
-    const targetRoute = storyRoutes[modulo(targetStage, storyCycleLength)];
-    if (window.location.hash !== targetRoute) history.pushState(null, '', targetRoute);
-    transitionToStoryPosition(storyPosition(targetStage));
+    goToStoryRoute(targetRoute, true);
   });
 
   storyLinks.forEach((link) => {
