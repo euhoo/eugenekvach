@@ -125,6 +125,11 @@ button {
   color: var(--evidence-frontend);
 }
 
+/* The light header line reads as a stray top border on the dark Frontend scene. */
+.concept-header:has(~ main #frontend:target) {
+  border-bottom-color: transparent;
+}
+
 .concept-header__inner {
   display: flex;
   min-height: var(--evidence-header-height);
@@ -445,6 +450,46 @@ button {
   border-left: 1px solid var(--evidence-line);
 }
 
+.evidence-panel--frontend {
+  background: var(--evidence-frontend);
+  color: #fff;
+}
+
+.evidence-panel--frontend .concept-kicker,
+.evidence-panel--frontend .evidence-panel__copy > p:not(.concept-kicker),
+.evidence-panel--frontend .evidence-proof-facts span,
+.evidence-panel--frontend .evidence-proof-facts small {
+  color: #bdc9d8;
+}
+
+.evidence-panel--frontend .evidence-proof-rail {
+  border-color: #3b4d65;
+}
+
+.evidence-panel--frontend .evidence-proof-facts li {
+  border-color: #3b4d65;
+}
+
+.evidence-panel--frontend .evidence-proof-facts strong {
+  color: #fff;
+}
+
+.evidence-panel--frontend .evidence-action--line {
+  border-color: #3b4d65;
+  color: #fff;
+}
+
+.evidence-panel--frontend .evidence-action--line:hover {
+  border-color: var(--evidence-paper);
+  background: var(--evidence-paper);
+  color: var(--evidence-frontend);
+}
+
+.evidence-panel--frontend .evidence-scene-nav--up {
+  --evidence-scene-nav-fill: var(--evidence-canvas);
+  --evidence-scene-nav-surface: var(--evidence-frontend);
+}
+
 .evidence-scene-nav {
   --evidence-scene-nav-fill: var(--evidence-frontend);
   --evidence-scene-nav-surface: var(--evidence-canvas);
@@ -523,9 +568,39 @@ button {
   --evidence-scene-nav-fill: var(--evidence-blue);
 }
 
+.evidence-panel--ai .evidence-scene-nav {
+  --evidence-scene-nav-fill: var(--evidence-frontend);
+  --evidence-scene-nav-surface: var(--evidence-canvas);
+}
+
+.evidence-panel--ai .evidence-scene-nav:hover {
+  color: var(--evidence-system);
+}
+
+.evidence-panel--frontend .evidence-scene-nav--right {
+  --evidence-scene-nav-fill: var(--evidence-blue);
+}
+
+.evidence-panel--frontend .evidence-scene-nav--right:hover {
+  color: var(--evidence-frontend);
+}
+
 .evidence-engagement .evidence-scene-nav {
   --evidence-scene-nav-fill: var(--evidence-canvas);
   --evidence-scene-nav-surface: var(--evidence-frontend);
+}
+
+.evidence-engagement .evidence-scene-nav--down {
+  --evidence-scene-nav-fill: var(--evidence-blue);
+}
+
+.evidence-engagement .evidence-scene-nav--down:not(:hover) {
+  color: #fff;
+}
+
+.evidence-engagement .evidence-scene-nav--down:hover {
+  background: var(--evidence-canvas);
+  color: var(--evidence-frontend);
 }
 
 .evidence-panel__inner {
