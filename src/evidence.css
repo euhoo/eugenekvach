@@ -18,7 +18,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -283,8 +282,6 @@ button {
   right: 0;
   left: 0;
   height: 1px;
-  scroll-snap-align: start;
-  scroll-margin-top: var(--evidence-header-height);
 }
 
 .evidence-story-snap--start {
@@ -320,8 +317,6 @@ button {
   width: 100vw;
   min-width: 100vw;
   height: var(--evidence-stage-height);
-  scroll-snap-align: start;
-  scroll-margin-top: var(--evidence-header-height);
 }
 
 .evidence-story-panel--hero {
@@ -456,21 +451,23 @@ button {
 }
 
 .evidence-proof-portrait img {
-  width: 200%;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover;
   filter: grayscale(1) contrast(1.04);
 }
 
 .evidence-proof-rail--frontend .evidence-proof-portrait img {
-  width: 161.2903%;
-  transform: translateX(0);
+  object-position: 0 50%;
 }
 
 .evidence-proof-rail--ai .evidence-proof-portrait img {
-  width: 263.1579%;
-  transform: translateX(-62%);
+  object-position: 100% 50%;
+}
+
+.evidence-proof-rail--frontend {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 
 .evidence-proof-portrait figcaption {
@@ -542,7 +539,7 @@ button {
 .evidence-panel--ai .evidence-proof-rail {
   grid-column: 1;
   grid-row: 1;
-  grid-template-columns: minmax(220px, 1.28fr) minmax(130px, 0.72fr);
+  grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
 }
 
 .evidence-panel--ai .evidence-proof-facts strong {
