@@ -3,7 +3,7 @@
   const controls = document.querySelectorAll('[data-density]');
   const storageKey = 'evidence-content-density';
 
-  const setDensity = (density) => {
+  const setDensity = (density, resetScroll = false) => {
     page.classList.toggle('evidence-page--min', density === 'min');
     controls.forEach((control) => {
       control.setAttribute('aria-pressed', String(control.dataset.density === density));
@@ -13,6 +13,10 @@
       localStorage.setItem(storageKey, density);
     } catch {
       // The preference is optional; the page remains fully usable without storage.
+    }
+
+    if (resetScroll) {
+      requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
     }
   };
 
@@ -24,18 +28,20 @@
   }
 
   controls.forEach((control) => {
-    control.addEventListener('click', () => setDensity(control.dataset.density));
+    control.addEventListener('click', () => setDensity(control.dataset.density, true));
   });
 
+  const header = document.querySelector('.concept-header');
   const story = document.querySelector('.evidence-scroll-story');
   const storySticky = document.querySelector('.evidence-scroll-story__sticky');
   const storyTrack = document.querySelector('.evidence-scroll-story__track');
-  const storyLinks = [...document.querySelectorAll('a[href="#frontend"], a[href="#ai"]')];
+  const engagement = document.querySelector('#engagement');
+  const storyLinks = [...document.querySelectorAll('a[href="#frontend"], a[href="#ai"], a[href="#engagement"]')];
   const headerLinks = [...document.querySelectorAll('.evidence-nav a[href^="#"]')];
   const desktopStory = window.matchMedia('(min-width: 901px)');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  const storyStart = () => story.offsetTop - document.querySelector('.concept-header').offsetHeight;
+  const storyStart = () => story.offsetTop - header.offsetHeight;
   const storyRange = () => story.offsetHeight - storySticky.offsetHeight;
 
   const setActiveStoryLink = (activeHash) => {
@@ -49,6 +55,12 @@
     if (!desktopStory.matches) {
       storyTrack.style.transform = '';
       setActiveStoryLink('');
+      return;
+    }
+
+    if (window.scrollY >= engagement.offsetTop - header.offsetHeight) {
+      storyTrack.style.transform = 'translate3d(' + (-(storyTrack.scrollWidth - storySticky.clientWidth)) + 'px, 0, 0)';
+      setActiveStoryLink('#engagement');
       return;
     }
 
@@ -69,7 +81,14 @@
     link.addEventListener('click', (event) => {
       if (!desktopStory.matches) return;
       event.preventDefault();
-      goToStoryPosition(link.hash === '#frontend' ? 0.5 : 1);
+      if (link.hash === '#engagement') {
+        window.scrollTo({
+          top: engagement.offsetTop - header.offsetHeight,
+          behavior: reduceMotion.matches ? 'auto' : 'smooth',
+        });
+      } else {
+        goToStoryPosition(link.hash === '#frontend' ? 0.5 : 1);
+      }
       history.replaceState(null, '', link.hash);
     });
   });

@@ -24,9 +24,9 @@ Deployment is intentionally a local one-command workflow:
 ./deploy.sh
 ```
 
-The script requires a clean `master` branch, validates the static source and the content-hash cache-busters on `styles.css` and `evidence.css`, pushes `master`, backs up the current server files, synchronizes `src/`, and runs external HTTPS smoke tests. If synchronization or verification fails, it restores the previous static release.
+The script requires a clean `master` branch, validates the static source and the content-hash cache-busters on `styles.css`, `evidence.css`, and `evidence.js`, pushes `master`, backs up the current server files, synchronizes `src/`, and runs external HTTPS smoke tests. If synchronization or verification fails, it restores the previous static release.
 
-After editing `styles.css` or `evidence.css`, restamp the cache-busters instead of editing a `?v=` hash by hand. This recomputes the hashes and updates every relevant HTML link; review and commit the result before deploying:
+After editing `styles.css`, `evidence.css`, or `evidence.js`, restamp the cache-busters instead of editing a `?v=` hash by hand. This recomputes the hashes and updates every relevant HTML link; review and commit the result before deploying:
 
 ```bash
 ./deploy.sh --stamp
@@ -49,6 +49,7 @@ Preview the synchronization without changing GitHub or production:
 - `src/helper/index.html` — the proof-first Jarwis engineering case study;
 - `src/styles.css` — design tokens, responsive layout, and diagrams;
 - `src/evidence.css` — the selected Evidence home-page visual system;
+- `src/evidence.js` — focused interaction for the Evidence scroll story and dialogs;
 - `src/assets/` — optimized public assets.
 - `deploy.sh` — guarded production deployment with backup, verification, and rollback.
 

@@ -64,18 +64,22 @@ deploy_assert_hash() {
 deploy_stamp_stylesheet() {
     local styles_hash
     local evidence_hash
+    local script_hash
     styles_hash="$(shasum -a 256 "$DEPLOY_SOURCE/styles.css" | awk '{print substr($1, 1, 12)}')"
     evidence_hash="$(shasum -a 256 "$DEPLOY_SOURCE/evidence.css" | awk '{print substr($1, 1, 12)}')"
+    script_hash="$(shasum -a 256 "$DEPLOY_SOURCE/evidence.js" | awk '{print substr($1, 1, 12)}')"
 
     local html_file
     while IFS= read -r html_file; do
         sed -i '' -E "s|styles\.css\?v=[0-9a-f]+|styles.css?v=${styles_hash}|g" "$html_file"
         sed -i '' -E "s|evidence\.css\?v=[0-9a-f]+|evidence.css?v=${evidence_hash}|g" "$html_file"
+        sed -i '' -E "s|evidence\.js\?v=[0-9a-f]+|evidence.js?v=${script_hash}|g" "$html_file"
     done < <(find "$DEPLOY_SOURCE" -type f -name '*.html' -print)
 
-    printf '\nStamped stylesheet cache-busters:\n  styles.css?v=%s\n  evidence.css?v=%s\nReview and commit the updated HTML, then run ./deploy.sh\n' \
+    printf '\nStamped cache-busters:\n  styles.css?v=%s\n  evidence.css?v=%s\n  evidence.js?v=%s\nReview and commit the updated HTML, then run ./deploy.sh\n' \
         "$styles_hash" \
-        "$evidence_hash"
+        "$evidence_hash" \
+        "$script_hash"
 }
 
 deploy_verify_live() {
@@ -91,6 +95,7 @@ deploy_verify_live() {
     deploy_assert_status "200" "$DEPLOY_URL/helper/?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/styles.css?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/evidence.css?revision=$revision" || return 1
+    deploy_assert_status "200" "$DEPLOY_URL/evidence.js?revision=$revision" || return 1
     deploy_assert_status "200" "$DEPLOY_URL/assets/eugene-kvach.jpg?revision=$revision" || return 1
     deploy_assert_status "404" "$DEPLOY_URL/deploy-smoke-not-found?revision=$revision" || return 1
 
@@ -100,6 +105,7 @@ deploy_verify_live() {
     deploy_assert_hash "helper/index.html" "$revision" || return 1
     deploy_assert_hash "styles.css" "$revision" || return 1
     deploy_assert_hash "evidence.css" "$revision" || return 1
+    deploy_assert_hash "evidence.js" "$revision" || return 1
     deploy_assert_hash "assets/eugene-kvach.jpg" "$revision" || return 1
 }
 
@@ -119,6 +125,7 @@ deploy_validate_source() {
     [[ -f "$DEPLOY_SOURCE/helper/index.html" ]] || deploy_fail "src/helper/index.html is missing"
     [[ -f "$DEPLOY_SOURCE/styles.css" ]] || deploy_fail "src/styles.css is missing"
     [[ -f "$DEPLOY_SOURCE/evidence.css" ]] || deploy_fail "src/evidence.css is missing"
+    [[ -f "$DEPLOY_SOURCE/evidence.js" ]] || deploy_fail "src/evidence.js is missing"
     [[ -f "$DEPLOY_SOURCE/assets/eugene-kvach.jpg" ]] || deploy_fail "Hero image is missing"
 
     if grep -Eiq 'noindex|nofollow' "$DEPLOY_SOURCE/index.html" "$DEPLOY_SOURCE/ai/index.html" "$DEPLOY_SOURCE/frontend/index.html" "$DEPLOY_SOURCE/helper/index.html"; then
@@ -127,6 +134,7 @@ deploy_validate_source() {
 
     local styles_hash
     local evidence_hash
+    local script_hash
     local html_file
     styles_hash="$(shasum -a 256 "$DEPLOY_SOURCE/styles.css" | awk '{print substr($1, 1, 12)}')"
     while IFS= read -r html_file; do
@@ -138,6 +146,11 @@ deploy_validate_source() {
     evidence_hash="$(shasum -a 256 "$DEPLOY_SOURCE/evidence.css" | awk '{print substr($1, 1, 12)}')"
     if ! grep -Fq "evidence.css?v=$evidence_hash\"" "$DEPLOY_SOURCE/index.html"; then
         deploy_fail "Evidence stylesheet cache-buster is stale in src/index.html; expected evidence.css?v=$evidence_hash"
+    fi
+
+    script_hash="$(shasum -a 256 "$DEPLOY_SOURCE/evidence.js" | awk '{print substr($1, 1, 12)}')"
+    if ! grep -Fq "evidence.js?v=$script_hash\"" "$DEPLOY_SOURCE/index.html"; then
+        deploy_fail "Evidence script cache-buster is stale in src/index.html; expected evidence.js?v=$script_hash"
     fi
 
     git -C "$DEPLOY_ROOT" diff --check
