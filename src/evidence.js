@@ -135,9 +135,9 @@
       const scrollTop = window.scrollY + header.offsetHeight + 1;
       const mobileScenes = [
         ['#content', story],
-        ['#engagement', engagement],
-        ['#ai', document.querySelector('#ai')],
         ['#frontend', document.querySelector('#frontend')],
+        ['#ai', document.querySelector('#ai')],
+        ['#engagement', engagement],
       ];
       const activeScene = mobileScenes.reduce((current, scene) => (
         scene[1].offsetTop <= scrollTop ? scene : current
@@ -148,7 +148,11 @@
     }
 
     const stageHeight = storySticky.clientHeight;
-    const progress = Math.max(0, Math.min(storyStageCount, storyProgress()));
+    const rawProgress = Math.max(0, Math.min(storyStageCount, storyProgress()));
+    const nearestStage = Math.round(rawProgress);
+    const progress = Math.abs(rawProgress - nearestStage) <= 2 / stageHeight
+      ? nearestStage
+      : rawProgress;
     const cycleProgress = modulo(progress, storyCycleLength);
     const segment = Math.floor(cycleProgress);
     const segmentProgress = cycleProgress - segment;

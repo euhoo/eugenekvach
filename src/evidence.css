@@ -967,7 +967,8 @@ html:has(.evidence-page--min) {
 
 .evidence-page--min .evidence-panel,
 .evidence-page--min .evidence-engagement,
-.evidence-page--min .evidence-story-snap {
+.evidence-page--min .evidence-story-snap,
+.evidence-page--min .evidence-scene-nav {
   display: none;
 }
 
@@ -1099,7 +1100,7 @@ html:has(.evidence-page--min) {
   }
 
   .evidence-scroll-story__track .evidence-engagement {
-    order: 1;
+    order: 3;
   }
 
   .evidence-panel--ai {
@@ -1107,7 +1108,7 @@ html:has(.evidence-page--min) {
   }
 
   .evidence-panel--frontend {
-    order: 3;
+    order: 1;
   }
 
   .evidence-screen,
