@@ -70,12 +70,60 @@
     setActiveStoryLink(progress < 0.25 ? '' : progress < 0.75 ? '#frontend' : '#ai');
   };
 
+  const storyPositions = () => [
+    storyStart(),
+    storyStart() + storyRange() * 0.5,
+    storyStart() + storyRange(),
+    engagement.offsetTop - header.offsetHeight,
+  ];
+
+  let storyTransitioning = false;
+
+  const goToStoryStep = (direction) => {
+    if (!desktopStory.matches || page.classList.contains('evidence-page--min')) return false;
+
+    const positions = storyPositions();
+    const currentIndex = positions.reduce((closestIndex, position, index) => (
+      Math.abs(position - window.scrollY) < Math.abs(positions[closestIndex] - window.scrollY) ? index : closestIndex
+    ), 0);
+    const targetIndex = Math.max(0, Math.min(positions.length - 1, currentIndex + direction));
+
+    if (targetIndex === currentIndex) return false;
+
+    const target = positions[targetIndex];
+    storyTransitioning = true;
+    window.scrollTo({ top: target, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+
+    const startedAt = performance.now();
+    const settle = () => {
+      if (Math.abs(window.scrollY - target) < 2 || performance.now() - startedAt > 1200) {
+        storyTransitioning = false;
+        return;
+      }
+      requestAnimationFrame(settle);
+    };
+    requestAnimationFrame(settle);
+    return true;
+  };
+
   const goToStoryPosition = (progress) => {
     window.scrollTo({
       top: storyStart() + storyRange() * progress,
       behavior: reduceMotion.matches ? 'auto' : 'smooth',
     });
   };
+
+  window.addEventListener('wheel', (event) => {
+    if (document.querySelector('.evidence-detail[open]')) return;
+
+    if (event.deltaY === 0 || storyTransitioning) {
+      if (storyTransitioning) event.preventDefault();
+      return;
+    }
+
+    const direction = Math.sign(event.deltaY);
+    if (goToStoryStep(direction)) event.preventDefault();
+  }, { passive: false });
 
   storyLinks.forEach((link) => {
     link.addEventListener('click', (event) => {

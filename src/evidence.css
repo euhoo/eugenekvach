@@ -150,11 +150,26 @@ button {
 }
 
 .concept-brand__name {
+  border: 0;
+  padding: 0;
+  background: transparent;
   color: var(--evidence-frontend);
+  cursor: pointer;
 }
 
 .concept-brand__surname {
+  border: 0;
+  padding: 0;
+  background: transparent;
   color: var(--evidence-blue);
+  cursor: pointer;
+}
+
+.concept-brand__name:hover,
+.concept-brand__surname:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .evidence-header-tools,
@@ -360,6 +375,10 @@ button {
   gap: 10px;
 }
 
+.evidence-panel--ai .evidence-screen-actions .evidence-action--frontend {
+  margin-top: 14px;
+}
+
 .evidence-action--frontend {
   border-color: var(--evidence-frontend);
   background: var(--evidence-frontend);
@@ -467,7 +486,7 @@ button {
 }
 
 .evidence-proof-rail--frontend {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 54fr) minmax(0, 46fr);
 }
 
 .evidence-proof-portrait figcaption {
@@ -539,7 +558,7 @@ button {
 .evidence-panel--ai .evidence-proof-rail {
   grid-column: 1;
   grid-row: 1;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+  grid-template-columns: minmax(0, 72fr) minmax(0, 28fr);
 }
 
 .evidence-panel--ai .evidence-proof-facts strong {
@@ -979,6 +998,27 @@ html:has(.evidence-page--min) {
 
   .evidence-engagement__inner {
     gap: 42px;
+  }
+}
+
+@media (min-width: 901px) {
+  .evidence-story-panel--hero,
+  .evidence-panel--frontend {
+    position: relative;
+  }
+
+  .evidence-story-panel--hero .evidence-action--frontend,
+  .evidence-panel--frontend .evidence-action--ai {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 2;
+    transform: translateY(-50%);
+  }
+
+  .evidence-story-panel--hero .evidence-action--frontend:hover,
+  .evidence-panel--frontend .evidence-action--ai:hover {
+    transform: translateY(calc(-50% - 2px));
   }
 }
 

@@ -21,7 +21,7 @@
     <meta property="og:image:alt" content="Евгений Квач · Senior Frontend × Applied AI Engineer" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="./styles.css?v=374b3c60e534" />
-    <link rel="stylesheet" href="./evidence.css?v=1ec6cc0a56ba" />
+    <link rel="stylesheet" href="./evidence.css?v=e7d0102a3f70" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -42,11 +42,11 @@
 
     <header class="concept-header">
       <div class="concept-frame concept-header__inner">
-        <a class="concept-brand" href="#content" aria-label="Евгений Квач, начало страницы">
-          <span class="concept-brand__name">Евгений</span>
-          <span class="concept-brand__mark" aria-hidden="true">ЕК</span>
-          <span class="concept-brand__surname">Квач</span>
-        </a>
+        <div class="concept-brand" role="group" aria-label="Евгений Квач">
+          <button class="concept-brand__name" type="button" data-density="min" aria-pressed="false">Евгений</button>
+          <a class="concept-brand__mark" href="#content" aria-label="Евгений Квач, начало страницы">ЕК</a>
+          <button class="concept-brand__surname" type="button" data-density="max" aria-pressed="true">Квач</button>
+        </div>
         <div class="evidence-header-tools">
           <nav class="concept-nav evidence-nav" aria-label="Навигация по разделам">
             <a href="#frontend">Frontend</a>
@@ -78,7 +78,7 @@
                   <p class="evidence-hero__lead">Семь лет развиваю enterprise frontend на Angular и Nx. Сейчас строю production-системы вокруг LLM: маршрутизацию, инструменты, память, проверку поведения и стоимость.</p>
                   <p class="evidence-hero__min-only">Frontend · AI · от идеи до production.</p>
                   <div class="evidence-screen-actions" aria-label="Переходы и контакт">
-                    <a class="concept-button evidence-action evidence-action--frontend" href="#frontend">Посмотреть Frontend <span aria-hidden="true">→</span></a>
+                    <a class="concept-button evidence-action evidence-action--frontend" href="#frontend">Frontend <span aria-hidden="true">→</span></a>
                     <a class="concept-button evidence-action evidence-action--line" href="https://t.me/euhoo">Обсудить задачу ↗</a>
                     <a class="concept-button evidence-action evidence-action--line evidence-min-resume" href="./assets/resumes/eugene-kvach-engineer-resume.pdf" download>Резюме <span aria-hidden="true">↓</span></a>
                   </div>
@@ -105,7 +105,7 @@
                     <button class="concept-button evidence-action evidence-action--line" type="button" data-open-detail="frontend-detail" aria-haspopup="dialog">Подробнее <span aria-hidden="true">→</span></button>
                     <a class="concept-button evidence-action evidence-action--line" href="./assets/resumes/eugene-kvach-senior-frontend-engineer.pdf" target="_blank" rel="noopener">Резюме · PDF <span aria-hidden="true">↗</span></a>
                     <a class="concept-button evidence-action evidence-action--line" href="https://hh.ru/resume/c256ba2fff10d82faf0039ed1f62546f367876?hhtmFrom=applicant_profile" target="_blank" rel="noopener">Резюме · hh.ru <span aria-hidden="true">↗</span></a>
-                    <a class="concept-button evidence-action evidence-action--ai" href="#ai">Посмотреть AI <span aria-hidden="true">→</span></a>
+                    <a class="concept-button evidence-action evidence-action--ai" href="#ai">AI <span aria-hidden="true">→</span></a>
                   </div>
                 </div>
 
@@ -132,7 +132,7 @@
                     <button class="concept-button evidence-action evidence-action--line" type="button" data-open-detail="jarwis-detail" aria-haspopup="dialog">Подробнее <span aria-hidden="true">→</span></button>
                     <a class="concept-button evidence-action evidence-action--line" href="./assets/resumes/eugene-kvach-ai-engineer.pdf" target="_blank" rel="noopener">Резюме · PDF <span aria-hidden="true">↗</span></a>
                     <a class="concept-button evidence-action evidence-action--line" href="https://hh.ru/resume/bbcb4809ff10d845c70039ed1f307a305a5570?hhtmFrom=applicant_profile" target="_blank" rel="noopener">Резюме · hh.ru <span aria-hidden="true">↗</span></a>
-                    <a class="concept-button evidence-action evidence-action--ai" href="#engagement">Как подключаюсь <span aria-hidden="true">↓</span></a>
+                    <a class="concept-button evidence-action evidence-action--frontend" href="#engagement">Как подключаюсь <span aria-hidden="true">↓</span></a>
                   </div>
                 </div>
 
@@ -168,6 +168,7 @@
             </ul>
             <div class="evidence-screen-actions">
               <a class="concept-button evidence-action evidence-action--inverse" href="https://t.me/euhoo">Написать в Telegram ↗</a>
+              <a class="concept-button evidence-action evidence-action--inverse" href="./assets/resumes/eugene-kvach-engineer-resume.pdf" download>Резюме <span aria-hidden="true">↓</span></a>
             </div>
             <p class="evidence-engagement__note">Гильдия научила договариваться о качестве на масштабе. Продажи: слушать, копать контекст и делать следующий шаг конкретным. Разработка — инженерному мышлению.</p>
           </div>
@@ -239,6 +240,6 @@
       </article>
     </dialog>
 
-    <script src="./evidence.js?v=48cab0670d6b" defer></script>
+    <script src="./evidence.js?v=58d1be910e1c" defer></script>
   </body>
 </html>
