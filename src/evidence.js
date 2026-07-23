@@ -2,6 +2,13 @@
   const page = document.body;
   const controls = document.querySelectorAll('[data-density]');
   const storageKey = 'evidence-content-density';
+  const jumpTo = (top) => {
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo({ top, behavior: 'auto' });
+    root.style.scrollBehavior = previousScrollBehavior;
+  };
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
@@ -18,7 +25,12 @@
     }
 
     if (resetScroll) {
-      requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+      requestAnimationFrame(() => {
+        const resetTop = density === 'max'
+          ? storyStart() + storySticky.clientHeight * storyInitialStage
+          : 0;
+        jumpTo(resetTop);
+      });
     }
   };
 
@@ -37,6 +49,7 @@
   const story = document.querySelector('.evidence-scroll-story');
   const storySticky = document.querySelector('.evidence-scroll-story__sticky');
   const storyTrack = document.querySelector('.evidence-scroll-story__track');
+  const storySnaps = document.querySelector('.evidence-story-snaps');
   const engagement = document.querySelector('#engagement');
   const storyLinks = [...document.querySelectorAll('a[href="#content"], a[href="#frontend"], a[href="#ai"], a[href="#engagement"]')];
   const headerLinks = [...document.querySelectorAll('.evidence-nav a[href^="#"]')];
@@ -48,9 +61,29 @@
   };
   const desktopStory = window.matchMedia('(min-width: 901px)');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const storyCycleLength = 4;
+  const storyInitialStage = 8;
+  const storyStageCount = 16;
 
   const storyStart = () => story.offsetTop - header.offsetHeight;
-  const storyRange = () => story.offsetHeight - storySticky.offsetHeight;
+  const storyPosition = (stage) => storyStart() + storySticky.clientHeight * stage;
+  const modulo = (value, divisor) => ((value % divisor) + divisor) % divisor;
+  const storyProgress = () => (window.scrollY - storyStart()) / storySticky.clientHeight;
+  const currentStoryStage = () => Math.round(Math.max(0, Math.min(storyStageCount, storyProgress())));
+
+  const populateStorySnaps = () => {
+    const fragment = document.createDocumentFragment();
+    const stageHeight = storySticky.clientHeight;
+
+    for (let stage = 0; stage <= storyStageCount; stage += 1) {
+      const snap = document.createElement('span');
+      snap.className = 'evidence-story-snap';
+      snap.style.top = stageHeight * stage + 'px';
+      fragment.append(snap);
+    }
+
+    storySnaps.replaceChildren(fragment);
+  };
 
   const setActiveStoryLink = (activeHash) => {
     headerLinks.forEach((link) => {
@@ -78,7 +111,7 @@
     });
   };
 
-  const updateSceneNavigations = (progress, isEngagement = false) => {
+  const updateSceneNavigations = (sceneIndex) => {
     if (!desktopStory.matches) {
       Object.values(sceneNavigations).flat().forEach((navigation) => {
         navigation.style.removeProperty('--evidence-scene-nav-opacity');
@@ -89,11 +122,9 @@
       return;
     }
 
-    const frontendOpacity = isEngagement ? 0 : Math.max(0, 1 - Math.abs(progress - 0.5) * 2);
-    const aiOpacity = isEngagement ? 0 : Math.max(0, (progress - 0.5) * 2);
-    setSceneNavigationOpacity(sceneNavigations.frontend, frontendOpacity);
-    setSceneNavigationOpacity(sceneNavigations.ai, aiOpacity);
-    setSceneNavigationOpacity(sceneNavigations.engagement, isEngagement ? 1 : 0);
+    setSceneNavigationOpacity(sceneNavigations.frontend, sceneIndex === 1 ? 1 : 0);
+    setSceneNavigationOpacity(sceneNavigations.ai, sceneIndex === 2 ? 1 : 0);
+    setSceneNavigationOpacity(sceneNavigations.engagement, sceneIndex === 3 ? 1 : 0);
   };
 
   const updateStory = () => {
@@ -114,26 +145,40 @@
       return;
     }
 
-    if (window.scrollY >= engagement.offsetTop - header.offsetHeight) {
-      storyTrack.style.transform = 'translate3d(' + (-(storyTrack.scrollWidth - storySticky.clientWidth)) + 'px, 0, 0)';
-      setStoryState('#engagement');
-      updateSceneNavigations(1, true);
-      return;
-    }
+    const stageHeight = storySticky.clientHeight;
+    const progress = Math.max(0, Math.min(storyStageCount, storyProgress()));
+    const cycleProgress = modulo(progress, storyCycleLength);
+    const segment = Math.floor(cycleProgress);
+    const segmentProgress = cycleProgress - segment;
+    const squarePath = [[0, 0], [-1, 0], [-1, -1], [0, -1], [0, 0]];
+    const currentPoint = squarePath[segment];
+    const nextPoint = squarePath[segment + 1];
+    const horizontalPosition = (currentPoint[0] + (nextPoint[0] - currentPoint[0]) * segmentProgress) * storySticky.clientWidth;
+    const verticalPosition = (currentPoint[1] + (nextPoint[1] - currentPoint[1]) * segmentProgress) * stageHeight;
+    const sceneIndex = modulo(Math.round(cycleProgress), storyCycleLength);
 
-    const progress = Math.max(0, Math.min(1, (window.scrollY - storyStart()) / storyRange()));
-    const horizontalTravel = storyTrack.scrollWidth - storySticky.clientWidth;
-    storyTrack.style.transform = 'translate3d(' + (-progress * horizontalTravel) + 'px, 0, 0)';
-    setStoryState(progress < 0.25 ? '#content' : progress < 0.75 ? '#frontend' : '#ai');
-    updateSceneNavigations(progress);
+    storyTrack.style.transform = 'translate3d(' + horizontalPosition + 'px, ' + verticalPosition + 'px, 0)';
+    setStoryState(storyRoutes[sceneIndex]);
+    updateSceneNavigations(sceneIndex);
   };
 
   const storyPositions = () => [
-    storyStart(),
-    storyStart() + storyRange() * 0.5,
-    storyStart() + storyRange(),
-    engagement.offsetTop - header.offsetHeight,
+    storyPosition(storyInitialStage),
+    storyPosition(storyInitialStage + 1),
+    storyPosition(storyInitialStage + 2),
+    storyPosition(storyInitialStage + 3),
   ];
+
+  const nearestStoryPosition = (routeIndex) => {
+    let nearest = storyPositions()[routeIndex];
+
+    for (let stage = routeIndex; stage <= storyStageCount; stage += storyCycleLength) {
+      const position = storyPosition(stage);
+      if (Math.abs(position - window.scrollY) < Math.abs(nearest - window.scrollY)) nearest = position;
+    }
+
+    return nearest;
+  };
 
   let storyTransitioning = false;
 
@@ -170,7 +215,7 @@
     if (routeIndex === -1) return false;
 
     if (writeHistory && window.location.hash !== hash) history.pushState(null, '', hash);
-    return transitionToStoryPosition(storyPositions()[routeIndex]);
+    return transitionToStoryPosition(nearestStoryPosition(routeIndex));
   };
 
   window.addEventListener('keydown', (event) => {
@@ -186,15 +231,13 @@
     const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 0;
     if (direction === 0) return;
 
-    const positions = storyPositions();
-    const currentIndex = positions.reduce((closestIndex, position, index) => (
-      Math.abs(position - window.scrollY) < Math.abs(positions[closestIndex] - window.scrollY) ? index : closestIndex
-    ), 0);
-    const targetIndex = Math.max(0, Math.min(positions.length - 1, currentIndex + direction));
-    if (targetIndex === currentIndex) return;
+    const targetStage = currentStoryStage() + direction;
+    if (targetStage < 0 || targetStage > storyStageCount) return;
 
     event.preventDefault();
-    goToStoryRoute(storyRoutes[targetIndex], true);
+    const targetRoute = storyRoutes[modulo(targetStage, storyCycleLength)];
+    if (window.location.hash !== targetRoute) history.pushState(null, '', targetRoute);
+    transitionToStoryPosition(storyPosition(targetStage));
   });
 
   storyLinks.forEach((link) => {
@@ -211,16 +254,44 @@
     animationFrame = requestAnimationFrame(updateStory);
   };
 
+  const normalizeInfiniteStory = () => {
+    if (
+      !desktopStory.matches ||
+      page.classList.contains('evidence-page--min') ||
+      storyTransitioning
+    ) return;
+
+    const stage = currentStoryStage();
+    const completedCycle = stage !== storyInitialStage && modulo(stage, storyCycleLength) === 0;
+    if (!completedCycle) return;
+
+    jumpTo(storyPosition(storyInitialStage));
+    requestStoryUpdate();
+  };
+
+  const resizeStory = () => {
+    populateStorySnaps();
+    requestStoryUpdate();
+  };
+
   window.addEventListener('scroll', requestStoryUpdate, { passive: true });
-  window.addEventListener('resize', requestStoryUpdate);
-  desktopStory.addEventListener('change', requestStoryUpdate);
+  window.addEventListener('scrollend', normalizeInfiniteStory);
+  window.addEventListener('resize', resizeStory);
+  desktopStory.addEventListener('change', resizeStory);
   window.addEventListener('popstate', () => {
     if (desktopStory.matches && storyRoutes.includes(window.location.hash)) goToStoryRoute(window.location.hash);
   });
-  requestStoryUpdate();
+  const initialStoryHash = window.location.hash;
+  populateStorySnaps();
 
-  if (desktopStory.matches && storyRoutes.includes(window.location.hash) && window.location.hash !== '#content') {
-    requestAnimationFrame(() => goToStoryRoute(window.location.hash));
+  if (desktopStory.matches && !page.classList.contains('evidence-page--min')) {
+    const initialRoute = Math.max(0, storyRoutes.indexOf(initialStoryHash));
+    requestAnimationFrame(() => {
+      jumpTo(storyPosition(storyInitialStage + initialRoute));
+      requestStoryUpdate();
+    });
+  } else {
+    requestStoryUpdate();
   }
 
   document.querySelectorAll('[data-open-detail]').forEach((control) => {

@@ -21,7 +21,7 @@
     <meta property="og:image:alt" content="Евгений Квач · Senior Frontend × Applied AI Engineer" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="./styles.css?v=374b3c60e534" />
-    <link rel="stylesheet" href="./evidence.css?v=5a350386b6df" />
+    <link rel="stylesheet" href="./evidence.css?v=095c9b9602f4" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -64,9 +64,7 @@
 
     <main id="content" tabindex="-1">
       <div class="evidence-scroll-story">
-        <span class="evidence-story-snap evidence-story-snap--start" aria-hidden="true"></span>
-        <span class="evidence-story-snap evidence-story-snap--frontend" aria-hidden="true"></span>
-        <span class="evidence-story-snap evidence-story-snap--ai" aria-hidden="true"></span>
+        <div class="evidence-story-snaps" aria-hidden="true"></div>
 
         <div class="evidence-scroll-story__sticky">
           <div class="evidence-scroll-story__track">
@@ -79,7 +77,7 @@
                   <p class="evidence-hero__min-only">Frontend · AI · от идеи до production.</p>
                   <div class="evidence-screen-actions" aria-label="Переходы и контакт">
                     <a class="concept-button evidence-action evidence-action--frontend" href="#frontend">Frontend <span aria-hidden="true">→</span></a>
-                    <a class="concept-button evidence-action evidence-action--line" href="https://t.me/euhoo">Обсудить задачу ↗</a>
+                    <a class="concept-button evidence-action evidence-action--line" href="#engagement">Обсудить <span aria-hidden="true">↓</span></a>
                     <a class="concept-button evidence-action evidence-action--line evidence-min-resume" href="./assets/resumes/eugene-kvach-engineer-resume.pdf" download>Резюме <span aria-hidden="true">↓</span></a>
                   </div>
                   <p class="evidence-hero__note">Проектная / частичная занятость · удалённо · от архитектуры до production.</p>
@@ -151,32 +149,32 @@
                 </aside>
               </div>
             </section>
+
+            <section class="evidence-screen evidence-engagement" id="engagement" aria-labelledby="engagement-title">
+              <a class="concept-button evidence-scene-nav evidence-scene-nav--up" href="#content" aria-label="К началу страницы"><span class="evidence-scene-nav__icon" aria-hidden="true">↑</span><span class="evidence-scene-nav__label" aria-hidden="true">Content</span></a>
+              <div class="concept-frame evidence-engagement__inner">
+                <div>
+                  <p class="concept-kicker">Как подключаюсь</p>
+                  <h2 id="engagement-title">Одна пара рук — от идеи до прода.</h2>
+                </div>
+                <div class="evidence-engagement__copy">
+                  <p>Сначала разбираюсь, что действительно нужно. Бэкграунд продаж помогает докопаться до причины, а инженерная практика превращает её в работающий план.</p>
+                  <ul class="evidence-engagement__services" aria-label="Форматы подключения">
+                    <li><strong>Аудит</strong><span>причина, приоритеты, путь исправления</span></li>
+                    <li><strong>Frontend</strong><span>платформа, процессы, миграции</span></li>
+                    <li><strong>AI</strong><span>сценарий, система, quality loop</span></li>
+                  </ul>
+                  <div class="evidence-screen-actions">
+                    <a class="concept-button evidence-action evidence-action--inverse" href="https://t.me/euhoo">Написать в Telegram ↗</a>
+                    <a class="concept-button evidence-action evidence-action--inverse" href="./assets/resumes/eugene-kvach-engineer-resume.pdf" download>Резюме <span aria-hidden="true">↓</span></a>
+                  </div>
+                  <p class="evidence-engagement__note">Гильдия научила договариваться о качестве на масштабе. Продажи: слушать, копать контекст и делать следующий шаг конкретным. Разработка — инженерному мышлению.</p>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>
-
-      <section class="evidence-screen evidence-engagement" id="engagement" aria-labelledby="engagement-title">
-        <a class="concept-button evidence-scene-nav evidence-scene-nav--up" href="#ai" aria-label="К разделу AI"><span class="evidence-scene-nav__icon" aria-hidden="true">↑</span><span class="evidence-scene-nav__label" aria-hidden="true">AI</span></a>
-        <div class="concept-frame evidence-engagement__inner">
-          <div>
-            <p class="concept-kicker">Как подключаюсь</p>
-            <h2 id="engagement-title">Одна пара рук — от идеи до прода.</h2>
-          </div>
-          <div class="evidence-engagement__copy">
-            <p>Сначала разбираюсь, что действительно нужно. Бэкграунд продаж помогает докопаться до причины, а инженерная практика превращает её в работающий план.</p>
-            <ul class="evidence-engagement__services" aria-label="Форматы подключения">
-              <li><strong>Аудит</strong><span>причина, приоритеты, путь исправления</span></li>
-              <li><strong>Frontend</strong><span>платформа, процессы, миграции</span></li>
-              <li><strong>AI</strong><span>сценарий, система, quality loop</span></li>
-            </ul>
-            <div class="evidence-screen-actions">
-              <a class="concept-button evidence-action evidence-action--inverse" href="https://t.me/euhoo">Написать в Telegram ↗</a>
-              <a class="concept-button evidence-action evidence-action--inverse" href="./assets/resumes/eugene-kvach-engineer-resume.pdf" download>Резюме <span aria-hidden="true">↓</span></a>
-            </div>
-            <p class="evidence-engagement__note">Гильдия научила договариваться о качестве на масштабе. Продажи: слушать, копать контекст и делать следующий шаг конкретным. Разработка — инженерному мышлению.</p>
-          </div>
-        </div>
-      </section>
     </main>
 
     <dialog class="evidence-detail evidence-detail--frontend" id="frontend-detail" aria-labelledby="frontend-detail-title">
@@ -243,6 +241,6 @@
       </article>
     </dialog>
 
-    <script src="./evidence.js?v=f44135a3fe08" defer></script>
+    <script src="./evidence.js?v=0204f432faed" defer></script>
   </body>
 </html>

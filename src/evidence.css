@@ -293,7 +293,13 @@ button {
 
 .evidence-scroll-story {
   position: relative;
-  height: calc(300svh - 216px);
+  height: calc(1700svh - 1224px);
+}
+
+.evidence-story-snaps {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .evidence-story-snap {
@@ -306,18 +312,6 @@ button {
   scroll-margin-top: var(--evidence-header-height);
 }
 
-.evidence-story-snap--start {
-  top: 0;
-}
-
-.evidence-story-snap--frontend {
-  top: calc(100svh - 72px);
-}
-
-.evidence-story-snap--ai {
-  top: calc(200svh - 144px);
-}
-
 .evidence-scroll-story__sticky {
   position: sticky;
   top: var(--evidence-header-height);
@@ -326,16 +320,21 @@ button {
 }
 
 .evidence-scroll-story__track {
-  display: flex;
-  width: max-content;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 200vw;
+  height: calc(var(--evidence-stage-height) * 2);
+  grid-template-columns: repeat(2, 100vw);
+  grid-template-rows: repeat(2, var(--evidence-stage-height));
   will-change: transform;
 }
 
 .evidence-screen,
 .evidence-story-panel,
-.evidence-scroll-story__track .evidence-panel {
-  flex: 0 0 100vw;
+.evidence-scroll-story__track .evidence-panel,
+.evidence-scroll-story__track .evidence-engagement {
   width: 100vw;
   min-width: 100vw;
   height: var(--evidence-stage-height);
@@ -343,6 +342,23 @@ button {
 
 .evidence-story-panel--hero {
   display: flex;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.evidence-panel--frontend {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.evidence-panel--ai {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.evidence-scroll-story__track .evidence-engagement {
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .evidence-hero {
@@ -938,7 +954,7 @@ html:has(.evidence-page--min) {
 
 .evidence-page--min .evidence-panel,
 .evidence-page--min .evidence-engagement,
-.evidence-page--min .evidence-story-snap:not(.evidence-story-snap--start) {
+.evidence-page--min .evidence-story-snap {
   display: none;
 }
 
@@ -1057,6 +1073,7 @@ html:has(.evidence-page--min) {
   }
 
   .evidence-scroll-story__track {
+    position: static;
     display: block;
     width: auto;
     height: auto;
