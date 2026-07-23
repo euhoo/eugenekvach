@@ -53,11 +53,12 @@
   const engagement = document.querySelector('#engagement');
   const storyLinks = [...document.querySelectorAll('a[href="#content"], a[href="#frontend"], a[href="#ai"], a[href="#engagement"]')];
   const headerLinks = [...document.querySelectorAll('.evidence-nav a[href^="#"]')];
-  const storyRoutes = ['#content', '#frontend', '#ai', '#engagement'];
+  const storyRoutes = ['#content', '#engagement', '#ai', '#frontend'];
   const sceneNavigations = {
-    frontend: [document.querySelector('#frontend .evidence-scene-nav--back')],
-    ai: [document.querySelector('#ai .evidence-scene-nav--back')],
-    engagement: [document.querySelector('#engagement .evidence-scene-nav--up')],
+    content: [...document.querySelectorAll('.evidence-story-panel--hero .evidence-scene-nav--content')],
+    frontend: [...document.querySelectorAll('#frontend .evidence-scene-nav--frontend')],
+    ai: [...document.querySelectorAll('#ai .evidence-scene-nav--ai')],
+    engagement: [...document.querySelectorAll('#engagement .evidence-scene-nav--engagement')],
   };
   const desktopStory = window.matchMedia('(min-width: 901px)');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -122,9 +123,10 @@
       return;
     }
 
-    setSceneNavigationOpacity(sceneNavigations.frontend, sceneIndex === 1 ? 1 : 0);
+    setSceneNavigationOpacity(sceneNavigations.content, sceneIndex === 0 ? 1 : 0);
+    setSceneNavigationOpacity(sceneNavigations.frontend, sceneIndex === 3 ? 1 : 0);
     setSceneNavigationOpacity(sceneNavigations.ai, sceneIndex === 2 ? 1 : 0);
-    setSceneNavigationOpacity(sceneNavigations.engagement, sceneIndex === 3 ? 1 : 0);
+    setSceneNavigationOpacity(sceneNavigations.engagement, sceneIndex === 1 ? 1 : 0);
   };
 
   const updateStory = () => {
@@ -133,9 +135,9 @@
       const scrollTop = window.scrollY + header.offsetHeight + 1;
       const mobileScenes = [
         ['#content', story],
-        ['#frontend', document.querySelector('#frontend')],
-        ['#ai', document.querySelector('#ai')],
         ['#engagement', engagement],
+        ['#ai', document.querySelector('#ai')],
+        ['#frontend', document.querySelector('#frontend')],
       ];
       const activeScene = mobileScenes.reduce((current, scene) => (
         scene[1].offsetTop <= scrollTop ? scene : current

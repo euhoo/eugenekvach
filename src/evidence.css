@@ -112,7 +112,7 @@ button {
 }
 
 .concept-button:hover {
-  transform: translateY(-2px);
+  transform: none;
 }
 
 .concept-header {
@@ -347,8 +347,8 @@ button {
 }
 
 .evidence-panel--frontend {
-  grid-column: 2;
-  grid-row: 1;
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .evidence-panel--ai {
@@ -357,8 +357,8 @@ button {
 }
 
 .evidence-scroll-story__track .evidence-engagement {
-  grid-column: 1;
-  grid-row: 2;
+  grid-column: 2;
+  grid-row: 1;
 }
 
 .evidence-hero {
@@ -446,43 +446,86 @@ button {
 }
 
 .evidence-scene-nav {
+  --evidence-scene-nav-fill: var(--evidence-frontend);
+  --evidence-scene-nav-surface: var(--evidence-canvas);
   position: absolute;
   z-index: 3;
-  width: 48px;
+  width: auto;
   min-width: 48px;
-  padding-inline: 0;
-  font-size: 22px;
+  padding-inline: 16px;
+  border-color: var(--evidence-scene-nav-fill);
+  background: var(--evidence-scene-nav-fill);
+  color: var(--evidence-scene-nav-surface);
+  font-size: 14px;
   line-height: 1;
+  transition: opacity 220ms ease-out, background-color 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out;
+}
+
+.evidence-scene-nav > span {
+  font-size: 12px;
+}
+
+.evidence-scene-nav:hover {
+  border-color: transparent;
+  background: var(--evidence-scene-nav-surface);
+  color: var(--evidence-scene-nav-fill);
 }
 
 @media (min-width: 901px) {
   .evidence-scene-nav {
     opacity: var(--evidence-scene-nav-opacity, 0);
     pointer-events: none;
-    transition: opacity 220ms ease-out;
+    transition: opacity 220ms ease-out, background-color 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out;
   }
 }
 
-.evidence-scene-nav--back {
+.evidence-scene-nav--left {
   top: 50%;
   left: -1px;
   transform: translateY(-50%);
 }
 
-.evidence-scene-nav--back:hover {
+.evidence-scene-nav--left:hover {
   transform: translateY(-50%);
 }
 
-.evidence-scene-nav--frontend {
-  border-color: var(--evidence-frontend);
-  background: var(--evidence-frontend);
-  color: #fff;
+.evidence-scene-nav--right {
+  top: 50%;
+  right: -1px;
+  transform: translateY(-50%);
+}
+
+.evidence-scene-nav--right:hover {
+  transform: translateY(-50%);
+}
+
+.evidence-scene-nav--up {
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.evidence-scene-nav--up:hover {
+  transform: translateX(-50%);
+}
+
+.evidence-scene-nav--down {
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.evidence-scene-nav--down:hover {
+  transform: translateX(-50%);
 }
 
 .evidence-scene-nav--ai {
-  border-color: var(--evidence-frontend);
-  background: var(--evidence-frontend);
-  color: #fff;
+  --evidence-scene-nav-fill: var(--evidence-blue);
+}
+
+.evidence-engagement .evidence-scene-nav {
+  --evidence-scene-nav-fill: var(--evidence-canvas);
+  --evidence-scene-nav-surface: var(--evidence-frontend);
 }
 
 .evidence-panel__inner {
@@ -632,6 +675,7 @@ button {
     align-self: flex-start;
     margin-top: auto;
   }
+
 }
 
 .evidence-panel--ai .evidence-proof-rail {
@@ -656,37 +700,6 @@ button {
   scroll-margin-top: var(--evidence-header-height);
   background: var(--evidence-frontend);
   color: #fff;
-}
-
-.evidence-scene-nav--up {
-  top: -1px;
-  left: 50%;
-  z-index: 21;
-  width: 48px;
-  min-width: 48px;
-  min-height: 48px;
-  flex-direction: column;
-  gap: 2px;
-  padding: 5px;
-  transform: translateX(-50%);
-  border: 0;
-  background: var(--evidence-canvas);
-  color: var(--evidence-frontend);
-}
-
-.evidence-scene-nav--up .evidence-scene-nav__icon {
-  font-size: 14px;
-  line-height: 1;
-}
-
-.evidence-scene-nav--up .evidence-scene-nav__label {
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.evidence-scene-nav--up:hover {
-  transform: translateX(-50%);
 }
 
 .evidence-engagement .concept-kicker,
@@ -1074,10 +1087,27 @@ html:has(.evidence-page--min) {
 
   .evidence-scroll-story__track {
     position: static;
-    display: block;
+    display: flex;
     width: auto;
     height: auto;
+    flex-direction: column;
     transform: none !important;
+  }
+
+  .evidence-story-panel--hero {
+    order: 0;
+  }
+
+  .evidence-scroll-story__track .evidence-engagement {
+    order: 1;
+  }
+
+  .evidence-panel--ai {
+    order: 2;
+  }
+
+  .evidence-panel--frontend {
+    order: 3;
   }
 
   .evidence-screen,
