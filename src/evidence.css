@@ -119,6 +119,7 @@ button {
   min-height: var(--evidence-header-height);
   border-bottom: 1px solid var(--evidence-line);
   background: var(--evidence-canvas);
+  color: var(--evidence-frontend);
 }
 
 .concept-header__inner {
@@ -463,11 +464,13 @@ button {
 }
 
 .evidence-proof-rail--frontend .evidence-proof-portrait img {
+  width: 161.2903%;
   transform: translateX(0);
 }
 
 .evidence-proof-rail--ai .evidence-proof-portrait img {
-  transform: translateX(-50%);
+  width: 263.1579%;
+  transform: translateX(-62%);
 }
 
 .evidence-proof-portrait figcaption {
