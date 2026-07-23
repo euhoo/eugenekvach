@@ -12,18 +12,18 @@ FORM: Role page for the Applied AI route; cobalt ownership per the route-ownersh
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Applied AI Engineering: production-системы вокруг LLM — multi-agent orchestration, tool use, двухслойная память, scenario evals, стоимость и latency. Кейс Jarwis с измерениями."
+      content="Как вывести LLM-функцию в production без непредсказуемых ответов, неконтролируемой стоимости и слепых зон качества. Кейс Jarwis с измерениями."
     />
-    <title>Applied AI Engineering · Евгений Квач</title>
+    <title>AI-функция без сюрпризов в production · Евгений Квач</title>
     <link rel="canonical" href="https://eugenekvach.ru/ai/" />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:url" content="https://eugenekvach.ru/ai/" />
-    <meta property="og:title" content="Applied AI Engineering · Евгений Квач" />
+    <meta property="og:title" content="AI-функция без сюрпризов в production · Евгений Квач" />
     <meta
       property="og:description"
-      content="Production-системы вокруг LLM: маршрутизация, агенты, инструменты, память и контуры качества. С измерениями, а не обещаниями."
+      content="Как вывести LLM-функцию в production без непредсказуемых ответов, неконтролируемой стоимости и слепых зон качества. С измерениями."
     />
     <meta property="og:image" content="https://eugenekvach.ru/assets/og.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -75,31 +75,31 @@ FORM: Role page for the Applied AI route; cobalt ownership per the route-ownersh
       <section class="ai-hero" aria-labelledby="ai-title">
         <div class="shell ai-hero__inner">
           <div class="ai-hero__copy">
-            <p class="case-marker"><i aria-hidden="true"></i> Route 01 · Applied AI Engineering</p>
+            <p class="case-marker"><i aria-hidden="true"></i> Когда AI нельзя выпускать вслепую</p>
             <h1 id="ai-title">
-              AI, который<br />
-              <em>доезжает</em><br />
-              до прода
+              AI-функция,<br />
+              которая <em>не подводит</em><br />
+              в проде
             </h1>
             <p class="ai-hero__lead">
-              Собираю системы вокруг LLM: маршрутизация, агенты, инструменты,
-              память, тесты на поведение. Где ответ можно посчитать кодом —
-              считаю кодом. Модель зову там, где реально нужен reasoning, и
-              слежу за её ценой.
+              Если LLM-фича должна помогать продукту, а не создавать новые риски,
+              ей недостаточно хорошего prompt. Нужны маршрутизация, tools, память,
+              проверка поведения и контроль стоимости — с моделью только там, где
+              действительно нужен reasoning.
             </p>
             <div class="ai-hero__actions">
               <a class="button button--light" href="../helper/">
-                Кейс Jarwis <span aria-hidden="true">→</span>
+                Разобрать кейс <span aria-hidden="true">→</span>
               </a>
               <a class="button button--blue-quiet" href="#jarwis-case">
-                Как это измерено <span aria-hidden="true">↓</span>
+                Посмотреть доказательства <span aria-hidden="true">↓</span>
               </a>
             </div>
           </div>
 
           <figure class="ai-stack" aria-labelledby="ai-stack-title">
             <figcaption class="ai-stack__meta" id="ai-stack-title">
-              <span>Карта AI-маршрута</span>
+              <span>Что держать под контролем</span>
               <span>production · 2026</span>
             </figcaption>
 
@@ -127,37 +127,37 @@ FORM: Role page for the Applied AI route; cobalt ownership per the route-ownersh
                 <li class="ai-stack__stop ai-stack__stop--left">
                   <span class="ai-stack__kicker">Routing</span>
                   <span class="ai-stack__chip">×80</span>
-                  <strong>Coordinator + fast-path</strong>
+                  <strong>Быстрый и одинаковый ответ</strong>
                   <small>известный триггер выполняется до модели</small>
                 </li>
                 <li class="ai-stack__stop ai-stack__stop--right">
                   <span class="ai-stack__kicker">Agents</span>
-                  <strong>Specialized agents + tools</strong>
-                  <small>узкая зона ответственности, function calling</small>
+                  <strong>Агенты с понятной зоной ответственности</strong>
+                  <small>узкий набор tools, function calling</small>
                 </li>
                 <li class="ai-stack__stop ai-stack__stop--left">
                   <span class="ai-stack__kicker">Memory</span>
                   <span class="ai-stack__chip">24 → 15</span>
-                  <strong>Двухслойная память</strong>
+                  <strong>Память без устаревших и дублирующихся фактов</strong>
                   <small>working TTL ↔ long-term recall, дедупликация</small>
                 </li>
                 <li class="ai-stack__stop ai-stack__stop--right">
                   <span class="ai-stack__kicker">Evals</span>
                   <span class="ai-stack__chip">2454</span>
-                  <strong>Scenario harness</strong>
+                  <strong>Проверка целого сценария до релиза</strong>
                   <small>диалог · routing · tool call · запись в БД</small>
                 </li>
                 <li class="ai-stack__stop ai-stack__stop--left">
                   <span class="ai-stack__kicker">Prompts</span>
                   <span class="ai-stack__chip">−22%</span>
-                  <strong>Cache-first prompts</strong>
+                  <strong>Стоимость без потери критичных правил</strong>
                   <small>стабильный prefix, сжатие после проверки правил</small>
                 </li>
               </ol>
             </div>
 
             <a class="ai-stack__terminal" href="../helper/">
-              <span>Конечная станция</span>
+              <span>Проверено на реальном сценарии</span>
               <strong>Production</strong>
               <em>Telegram · с весны 2026</em>
               <small>Открыть кейс Jarwis <span aria-hidden="true">→</span></small>
@@ -174,43 +174,43 @@ FORM: Role page for the Applied AI route; cobalt ownership per the route-ownersh
 
       <section class="ai-facts shell" id="stack" aria-labelledby="stack-title">
         <header class="ai-facts__header">
-          <p class="section-route"><i aria-hidden="true"></i> Состав маршрута</p>
-          <h2 id="stack-title">Ядро — модель. Всё остальное делает система вокруг</h2>
+          <p class="section-route"><i aria-hidden="true"></i> Карта рисков</p>
+          <h2 id="stack-title">У LLM-фичи ломается не только ответ модели</h2>
           <p class="ai-facts__lead">
-            Каждый слой закрывает свой класс отказов и обкатан в проде —
-            от маршрутизации до стоимости input-токена.
+            Ниже — контуры, которые закрывают разные классы отказов: от неверного
+            маршрута и устаревшей истории до цены каждого input-токена.
           </p>
         </header>
 
         <ul class="ai-facts__list">
           <li>
             <span class="ai-facts__station" aria-hidden="true"></span>
-            <strong>Multi-agent orchestration</strong>
-            <span>Coordinator определяет путь запроса; специализированные агенты получают узкую зону ответственности, а не один универсальный prompt.</span>
+            <strong>Запрос не уходит в универсальный prompt</strong>
+            <span>Coordinator определяет путь запроса; специализированные агенты получают узкую зону ответственности.</span>
           </li>
           <li>
             <span class="ai-facts__station" aria-hidden="true"></span>
-            <strong>Tool use</strong>
+            <strong>Нужное действие не остаётся на усмотрение модели</strong>
             <span>Function calling к domain-сервисам: чтение и структурированная запись вместо свободного текста в ответе.</span>
           </li>
           <li>
             <span class="ai-facts__station" aria-hidden="true"></span>
-            <strong>Двухслойная память</strong>
+            <strong>История не подменяет актуальный контекст</strong>
             <span>Working memory хранит контекст с TTL. Long-term отвечает за recall, нормализацию и дедупликацию фактов.</span>
           </li>
           <li>
             <span class="ai-facts__station" aria-hidden="true"></span>
-            <strong>Детерминированный контур</strong>
-            <span>Критичные триггеры выполняются до модели: ~31 мс вместо ~2575 мс и ноль LLM-вызовов на известном пути.</span>
+            <strong>Критичный ответ не зависит от случайности модели</strong>
+            <span>Известные триггеры выполняются до модели: ~31 мс вместо ~2575 мс и ноль LLM-вызовов на известном пути.</span>
           </li>
           <li>
             <span class="ai-facts__station" aria-hidden="true"></span>
-            <strong>Scenario evals</strong>
+            <strong>Регрессия ловится до пользователя</strong>
             <span>Проверяется не «хороший ответ», а цепочка: диалог → routing → tool call → запись в БД. Сценарии строятся из реальных ошибок.</span>
           </li>
           <li>
             <span class="ai-facts__station" aria-hidden="true"></span>
-            <strong>Стоимость и latency</strong>
+            <strong>Стоимость и latency — видимая часть решения</strong>
             <span>Cache-first prompts и разделение static/dynamic частей сохраняют prefix cache и снижают стоимость input-токенов.</span>
           </li>
         </ul>
@@ -219,36 +219,36 @@ FORM: Role page for the Applied AI route; cobalt ownership per the route-ownersh
       <section class="ai-rules" id="rules" aria-labelledby="rules-title">
         <div class="shell ai-rules__inner">
           <header class="ai-rules__header">
-            <p class="section-route section-route--dark"><i aria-hidden="true"></i> Правила маршрута</p>
-            <h2 id="rules-title">Четыре правила, которые вынес из прода</h2>
+            <p class="section-route section-route--dark"><i aria-hidden="true"></i> Контуры надёжности</p>
+            <h2 id="rules-title">Как снижаю главные риски AI-фичи</h2>
           </header>
 
           <ol class="ai-rules__list">
             <li>
               <b>01</b>
               <div>
-                <strong>Сначала failure mode, потом модель.</strong>
-                <span>Что может сломаться — галлюцинация tool call, устаревшая история, деградация cache — то и формирует архитектуру.</span>
+                <strong>Сначала риск для продукта, потом модель.</strong>
+                <span>Галлюцинация tool call, устаревшая история или деградация cache формируют архитектуру, а не становятся сюрпризом после релиза.</span>
               </div>
             </li>
             <li>
               <b>02</b>
               <div>
-                <strong>Детерминированно там, где можно.</strong>
-                <span>Модель дорогая и недетерминированная. Код до модели — быстрый, одинаковый и проверяемый.</span>
+                <strong>Детерминированно там, где цена ошибки высока.</strong>
+                <span>Код до модели даёт быстрый, одинаковый и проверяемый результат там, где он нужен пользователю.</span>
               </div>
             </li>
             <li>
               <b>03</b>
               <div>
-                <strong>Сначала измерить, потом оптимизировать.</strong>
+                <strong>Стоимость и задержка видны до масштабирования.</strong>
                 <span>Latency, стоимость input-токенов и качество сценариев — метрики первого класса, а не догадки «на глаз».</span>
               </div>
             </li>
             <li>
               <b>04</b>
               <div>
-                <strong>Поведение — тестируемый контракт.</strong>
+                <strong>Пользовательский сценарий — тестируемый контракт.</strong>
                 <span>Сценарий, воспроизводящий реальную ошибку, ценнее unit-теста на отдельную функцию.</span>
               </div>
             </li>
@@ -260,25 +260,25 @@ FORM: Role page for the Applied AI route; cobalt ownership per the route-ownersh
         <div class="shell">
           <div class="ai-proof__sheet">
             <div class="ai-proof__meta">
-              <span>Главная станция · Jarwis</span>
+              <span>Проверенный сценарий · Jarwis</span>
               <span>Engineering case study</span>
             </div>
 
             <div class="ai-proof__body">
               <div class="ai-proof__copy">
-                <h2 id="proof-title">Один кейс — со всеми измерениями</h2>
+                <h2 id="proof-title">Не демо: кейс с ценой, скоростью и качеством</h2>
                 <p>
-                  Jarwis — production AI-ассистент в Telegram. Четыре инженерных
-                  решения разобраны в формате «проблема → решение → результат →
-                  trade-off», с измерениями latency, стоимости и качества.
+                  Jarwis — production AI-ассистент в Telegram. В кейсе разобраны
+                  четыре риска, инженерные решения и их последствия: latency,
+                  стоимость, качество и границы каждого компромисса.
                 </p>
               </div>
               <div class="ai-proof__actions">
                 <a class="button button--primary" href="../helper/">
-                  Разобрать кейс <span aria-hidden="true">→</span>
+                  Посмотреть решения <span aria-hidden="true">→</span>
                 </a>
                 <a class="button button--quiet" href="https://t.me/euhoo">
-                  Обсудить задачу <span aria-hidden="true">↗</span>
+                  Обсудить похожую ситуацию <span aria-hidden="true">↗</span>
                 </a>
               </div>
             </div>
@@ -313,12 +313,12 @@ FORM: Role page for the Applied AI route; cobalt ownership per the route-ownersh
           <i class="transfer-sign__ai" aria-hidden="true"></i>
           <i class="transfer-sign__seg" aria-hidden="true"></i>
           <i class="transfer-sign__frontend" aria-hidden="true"></i>
-          Пересадка
+          Инженерная база
         </p>
-        <h2 id="transfer-title">AI-маршрут стоит на семи годах frontend-инженерии</h2>
+        <h2 id="transfer-title">AI не становится надёжнее без инженерной базы</h2>
         <p class="ai-transfer__lead">
-          Angular 8 → 21, четыре приложения и shared UI-библиотека: базовая линия,
-          без которой верхний маршрут не доехал бы до production.
+          Angular 8 → 21, четыре приложения и shared UI-библиотека сформировали
+          привычки, которые нужны AI-системе: контракты, проверяемость и эксплуатация.
         </p>
         <a class="ai-transfer__link" href="../frontend/">
           Frontend-основание <span aria-hidden="true">→</span>
@@ -327,11 +327,11 @@ FORM: Role page for the Applied AI route; cobalt ownership per the route-ownersh
 
       <section class="ai-contact" aria-labelledby="ai-contact-title">
         <div class="shell ai-contact__inner">
-          <p class="contact__route"><i aria-hidden="true"></i> Следующий маршрут</p>
-          <h2 id="ai-contact-title">Нужна AI-система, которая доедет до прода?</h2>
+          <p class="contact__route"><i aria-hidden="true"></i> Следующий шаг</p>
+          <h2 id="ai-contact-title">Хотите понять, где LLM действительно принесёт пользу?</h2>
           <div class="ai-contact__actions">
             <a class="button button--contact" href="https://t.me/euhoo">
-              Обсудить задачу <span aria-hidden="true">↗</span>
+              Обсудить ситуацию <span aria-hidden="true">↗</span>
             </a>
             <a class="ai-contact__mail" href="mailto:euhoo@mail.ru">euhoo@mail.ru</a>
             <a class="ai-contact__case" href="../helper/">Полный кейс Jarwis →</a>

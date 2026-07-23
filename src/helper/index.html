@@ -12,18 +12,18 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Jarwis — production AI-ассистент в Telegram. Архитектура, deterministic fast-path, cache-first prompts, сценарные тесты и двухслойная память."
+      content="Как сделать LLM-функцию предсказуемой в production: защитить критичные сценарии, контролировать стоимость и ловить регрессии до пользователя."
     />
-    <title>Jarwis — engineering case study · Евгений Квач</title>
+    <title>Как сделать AI-функцию предсказуемой в production · Jarwis</title>
     <link rel="canonical" href="https://eugenekvach.ru/helper/" />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:url" content="https://eugenekvach.ru/helper/" />
-    <meta property="og:title" content="Jarwis — production AI-ассистент в Telegram" />
+    <meta property="og:title" content="Как сделать AI-функцию предсказуемой в production · Jarwis" />
     <meta
       property="og:description"
-      content="Multi-agent orchestration, tools, память и детерминированные контуры вокруг LLM — с измерениями latency, стоимости и качества."
+      content="Как защитить критичные LLM-сценарии, контролировать стоимость и ловить регрессии до пользователя — с измерениями latency, стоимости и качества."
     />
     <meta property="og:image" content="https://eugenekvach.ru/assets/og.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -75,18 +75,18 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
       <section class="helper-hero" aria-labelledby="helper-title">
         <div class="shell helper-hero__inner">
           <div class="helper-hero__copy">
-            <p class="case-marker"><i aria-hidden="true"></i> Engineering case study · production с весны 2026</p>
-            <h1 id="helper-title">Jarwis: production AI-ассистент в Telegram</h1>
+            <p class="case-marker"><i aria-hidden="true"></i> Как убрать сюрпризы из LLM-функции · production с весны 2026</p>
+            <h1 id="helper-title">Jarwis: AI-ассистент, который можно контролировать в production</h1>
             <p class="helper-hero__lead">
-              Мульти-агентная оркестрация, инструменты, двухслойная память и
-              детерминированные контуры вокруг LLM — с замерами latency,
-              стоимости и качества.
+              Кейс о том, как критичные сценарии не оставлять на усмотрение модели:
+              маршрутизация, tools, память, контуры качества и измерения latency,
+              стоимости и поведения.
             </p>
             <div class="helper-hero__actions">
               <a class="button button--light" href="#architecture">
-                Смотреть архитектуру <span aria-hidden="true">↓</span>
+                Посмотреть контуры <span aria-hidden="true">↓</span>
               </a>
-              <a class="button button--blue-quiet" href="https://t.me/euhoo">Обсудить задачу ↗</a>
+              <a class="button button--blue-quiet" href="https://t.me/euhoo">Обсудить ситуацию ↗</a>
             </div>
             <p class="privacy-note">
               Это инженерный кейс, не медицинский сервис. Пользовательские данные,
@@ -169,8 +169,8 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
 
       <nav class="case-nav" aria-label="Навигация по кейсу">
         <div class="shell case-nav__inner">
-          <a href="#context">Контекст</a>
-          <a href="#architecture">Архитектура</a>
+          <a href="#context">Риски</a>
+          <a href="#architecture">Контуры</a>
           <a href="#decisions">Решения</a>
           <a href="#data">Данные</a>
           <a href="#operations">Production</a>
@@ -178,16 +178,18 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
       </nav>
 
       <section class="helper-context shell" id="context" aria-labelledby="context-title">
-        <p class="section-route"><i aria-hidden="true"></i> Контекст и ограничения</p>
+        <p class="section-route"><i aria-hidden="true"></i> Риски и ограничения</p>
         <div class="helper-context__body">
-          <h2 id="context-title">Подключить LLM API было самой простой частью</h2>
+          <h2 id="context-title">Подключить LLM API было самой простой частью. Риски начались после.</h2>
           <p class="helper-context__lead">
-            Сложность началась там, где свободное поведение модели встретилось
-            с персональными данными, структурированной записью и production-ожиданиями.
+            Свободное поведение модели встретилось с персональными данными,
+            структурированной записью и production-ожиданиями. Вот что пришлось
+            держать под контролем, чтобы пользовательский сценарий не ломался.
           </p>
           <ul class="constraint-list">
             <li><strong>Tool call не гарантирован.</strong><span>Модель может ответить прозой вместо вызова нужного инструмента.</span></li>
             <li><strong>История может устареть.</strong><span>Старый диалог способен подменить свежий результат сервиса.</span></li>
+            <li><strong>Свободный текст ломает структуру.</strong><span>Для критичной записи нужен детерминированный путь, а не свободная интерпретация модели.</span></li>
             <li><strong>Динамика ломает cache.</strong><span>Изменение prefix повышает latency и стоимость input-токенов.</span></li>
             <li><strong>Память накапливает мусор.</strong><span>Без lifecycle появляются дубли и противоречия.</span></li>
             <li><strong>Unit-теста недостаточно.</strong><span>Нужно проверять диалог, routing, tools и запись в БД вместе.</span></li>
@@ -198,12 +200,12 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
 
       <section class="architecture" id="architecture" aria-labelledby="architecture-title">
         <div class="shell architecture__header">
-          <p class="section-route section-route--dark"><i aria-hidden="true"></i> Карта запросов</p>
+          <p class="section-route section-route--dark"><i aria-hidden="true"></i> Контуры запроса</p>
           <div>
-            <h2 id="architecture-title">Один вход. Четыре принципиально разных пути</h2>
+            <h2 id="architecture-title">Один запрос — четыре пути вместо одного рискованного сценария</h2>
             <p>
-              Выберите сценарий: схема подсветит только те слои, которые реально
-              участвуют в обработке. Без переключения вся архитектура остаётся читаемой.
+              Выберите сценарий: схема покажет, где результат задаёт код, где модели
+              оставлен узкий контур, а где данные проходят отдельный предсказуемый путь.
             </p>
             <p class="architecture__hint-key"><span aria-hidden="true">?</span> Наведите курсор или нажмите, чтобы разобрать узел.</p>
           </div>
@@ -431,10 +433,10 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
       </div>
 
       <section class="data-path shell" id="data" aria-labelledby="data-title">
-        <p class="section-route"><i aria-hidden="true"></i> Структурированная запись</p>
+        <p class="section-route"><i aria-hidden="true"></i> Когда данные нельзя испортить</p>
         <div class="data-path__heading">
-          <h2 id="data-title">Для PDF — отдельный предсказуемый путь</h2>
-          <p>В публичном кейсе нет реальных медицинских документов. Показан только инженерный контур обработки.</p>
+          <h2 id="data-title">Для PDF — отдельный предсказуемый путь, а не ответ модели</h2>
+          <p>Когда данные нужно записать в структуру, свободная интерпретация создаёт риск. В публичном кейсе показан только инженерный контур, без реальных документов.</p>
         </div>
         <ol class="data-pipeline">
           <li>
@@ -470,10 +472,10 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
 
       <section class="operations" id="operations" aria-labelledby="operations-title">
         <div class="shell operations__inner">
-          <p class="section-route section-route--dark"><i aria-hidden="true"></i> Production и эксплуатация</p>
+          <p class="section-route section-route--dark"><i aria-hidden="true"></i> Надёжность после релиза</p>
           <div class="operations__heading">
-            <h2 id="operations-title">Система заканчивается не на ответе модели</h2>
-            <p>Отдельные контуры отвечают за доставку, ограничения и восстановление, не маскируя программные ошибки.</p>
+            <h2 id="operations-title">Пользовательский сценарий не заканчивается на ответе модели</h2>
+            <p>Доставка, ограничения и восстановление — отдельные контуры, чтобы ошибка не превращалась в тихую деградацию продукта.</p>
           </div>
           <ul class="operations__list">
             <li><strong>Runtime</strong><span>TypeScript / Node.js core + Telegram transport</span></li>
@@ -487,9 +489,9 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
       </section>
 
       <section class="lessons shell" aria-labelledby="lessons-title">
-        <p class="section-route"><i aria-hidden="true"></i> Что изменилось в подходе</p>
+        <p class="section-route"><i aria-hidden="true"></i> Принципы для следующей системы</p>
         <div class="lessons__body">
-          <h2 id="lessons-title">Четыре вывода, которые переношу в следующие AI-системы</h2>
+          <h2 id="lessons-title">Четыре вещи, без которых AI-фича становится риском</h2>
           <ol>
             <li><strong>Prompt не является гарантией.</strong><span>Критичные пути требуют deterministic guards.</span></li>
             <li><strong>Evals проверяют последствия.</strong><span>Ответ модели, tool call, запись в БД и полный сценарий.</span></li>
@@ -501,10 +503,10 @@ FORM: Read-mode engineering decision record, grounded structure 4 from surface s
 
       <section class="helper-contact" aria-labelledby="helper-contact-title">
         <div class="shell helper-contact__inner">
-          <p class="contact__route"><i aria-hidden="true"></i> Следующий запрос</p>
-          <h2 id="helper-contact-title">Нужно встроить LLM в существующий продукт?</h2>
+          <p class="contact__route"><i aria-hidden="true"></i> Следующий шаг</p>
+          <h2 id="helper-contact-title">Нужно понять, где LLM принесёт пользу без новых рисков?</h2>
           <div class="helper-contact__actions">
-            <a class="button button--contact" href="https://t.me/euhoo">Обсудить задачу <span aria-hidden="true">↗</span></a>
+            <a class="button button--contact" href="https://t.me/euhoo">Обсудить ситуацию <span aria-hidden="true">↗</span></a>
             <a class="helper-contact__demo" href="mailto:euhoo@mail.ru">euhoo@mail.ru</a>
           </div>
           <p class="contact-format">Живое демо Jarwis — по запросу. Проектная / частичная занятость, удалённо.</p>
