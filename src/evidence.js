@@ -136,38 +136,12 @@
   ];
 
   let storyTransitioning = false;
-  let lastStoryWheelAt = 0;
-  const wheelQuietPeriod = 90;
 
   const scrollToStoryPosition = (target) => {
-    const root = document.documentElement;
-    const initialScrollBehavior = root.style.scrollBehavior;
-    const start = window.scrollY;
-    const distance = target - start;
-    const duration = reduceMotion.matches ? 0 : 260;
-
-    root.style.scrollBehavior = 'auto';
-
-    if (duration === 0 || Math.abs(distance) < 2) {
-      window.scrollTo(0, target);
-      root.style.scrollBehavior = initialScrollBehavior;
-      return;
-    }
-
-    const startedAt = performance.now();
-    const animate = (now) => {
-      const progress = Math.min(1, (now - startedAt) / duration);
-      const easedProgress = 1 - Math.pow(1 - progress, 4);
-      window.scrollTo(0, start + distance * easedProgress);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-        return;
-      }
-
-      root.style.scrollBehavior = initialScrollBehavior;
-    };
-    requestAnimationFrame(animate);
+    window.scrollTo({
+      top: target,
+      behavior: reduceMotion.matches ? 'auto' : 'smooth',
+    });
   };
 
   const transitionToStoryPosition = (target) => {
@@ -175,7 +149,6 @@
     if (Math.abs(window.scrollY - target) < 2) return false;
 
     storyTransitioning = true;
-    lastStoryWheelAt = performance.now();
     scrollToStoryPosition(target);
 
     const startedAt = performance.now();
@@ -183,12 +156,6 @@
       const reachedTarget = Math.abs(window.scrollY - target) < 2 || performance.now() - startedAt > 1200;
       if (!reachedTarget) {
         requestAnimationFrame(settle);
-        return;
-      }
-
-      const remainingQuietTime = wheelQuietPeriod - (performance.now() - lastStoryWheelAt);
-      if (remainingQuietTime > 0) {
-        window.setTimeout(settle, remainingQuietTime);
         return;
       }
 
@@ -205,30 +172,6 @@
     if (writeHistory && window.location.hash !== hash) history.pushState(null, '', hash);
     return transitionToStoryPosition(storyPositions()[routeIndex]);
   };
-
-  window.addEventListener('wheel', (event) => {
-    if (document.querySelector('.evidence-detail[open]')) return;
-
-    if (event.deltaY === 0 || storyTransitioning) {
-      if (storyTransitioning) {
-        lastStoryWheelAt = performance.now();
-        event.preventDefault();
-      }
-      return;
-    }
-
-    if (!desktopStory.matches || page.classList.contains('evidence-page--min')) return;
-
-    const positions = storyPositions();
-    const currentIndex = positions.reduce((closestIndex, position, index) => (
-      Math.abs(position - window.scrollY) < Math.abs(positions[closestIndex] - window.scrollY) ? index : closestIndex
-    ), 0);
-    const targetIndex = Math.max(0, Math.min(positions.length - 1, currentIndex + Math.sign(event.deltaY)));
-    if (targetIndex !== currentIndex && goToStoryRoute(storyRoutes[targetIndex], true)) {
-      lastStoryWheelAt = performance.now();
-      event.preventDefault();
-    }
-  }, { passive: false });
 
   window.addEventListener('keydown', (event) => {
     const isEditableTarget = event.target instanceof Element && event.target.matches('input, textarea, select, [contenteditable="true"]');

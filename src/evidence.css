@@ -20,6 +20,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html:has(body.evidence-page:not(.evidence-page--min)) {
+  scroll-snap-type: y mandatory;
+}
+
 body {
   min-width: 320px;
   margin: 0;
@@ -297,6 +301,9 @@ button {
   right: 0;
   left: 0;
   height: 1px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scroll-margin-top: var(--evidence-header-height);
 }
 
 .evidence-story-snap--start {
@@ -519,7 +526,7 @@ button {
 }
 
 .evidence-proof-rail--frontend .evidence-proof-portrait img {
-  object-position: 0 50%;
+  object-position: 22% 50%;
 }
 
 .evidence-proof-rail--ai .evidence-proof-portrait img {
@@ -629,6 +636,7 @@ button {
   height: var(--evidence-stage-height);
   align-items: center;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   scroll-margin-top: var(--evidence-header-height);
   background: var(--evidence-frontend);
   color: #fff;
@@ -646,7 +654,7 @@ button {
   padding: 5px;
   transform: translateX(-50%);
   border: 0;
-  background: #fff;
+  background: var(--evidence-canvas);
   color: var(--evidence-frontend);
 }
 
