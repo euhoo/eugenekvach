@@ -585,7 +585,7 @@ button {
 }
 
 .evidence-proof-rail--frontend .evidence-proof-portrait img {
-  object-position: 22% 50%;
+  object-position: 38% 50%;
 }
 
 .evidence-proof-rail--ai .evidence-proof-portrait img {
@@ -593,7 +593,7 @@ button {
 }
 
 .evidence-proof-rail--frontend {
-  grid-template-columns: minmax(0, 54fr) minmax(0, 46fr);
+  grid-template-columns: minmax(0, 39fr) minmax(0, 61fr);
 }
 
 .evidence-proof-portrait figcaption {
